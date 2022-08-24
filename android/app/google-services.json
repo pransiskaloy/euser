@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "881671885230",
+    "project_id": "furfetch-application",
+    "storage_bucket": "furfetch-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881671885230:android:ba29e35b2acfb91feb783f",
+        "android_client_info": {
+          "package_name": "com.example.euser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881671885230-2bmjdbq2t0peec26tbocdrp4kvi9k6fm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvO7e03LJ-d3nCdCZTDcZYNjRV8rZwbUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881671885230-2bmjdbq2t0peec26tbocdrp4kvi9k6fm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

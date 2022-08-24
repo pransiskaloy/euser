@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "92371812916",
+    "firebase_url": "https://furfetch22-default-rtdb.firebaseio.com",
+    "project_id": "furfetch22",
+    "storage_bucket": "furfetch22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92371812916:android:b0e0b9a7c0039c46918061",
+        "android_client_info": {
+          "package_name": "com.example.edriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92371812916-0ou3naub1si2jevqmoqgi22du8un5228.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzv8XjKLYRtT_dcWYtUf6OASpkV0wGrL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92371812916-0ou3naub1si2jevqmoqgi22du8un5228.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92371812916:android:4b3a8ad59756762e918061",
+        "android_client_info": {
+          "package_name": "com.example.euser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92371812916-0ou3naub1si2jevqmoqgi22du8un5228.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzv8XjKLYRtT_dcWYtUf6OASpkV0wGrL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92371812916-0ou3naub1si2jevqmoqgi22du8un5228.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92371812916:android:bbb2d88e19c93f6e918061",
+        "android_client_info": {
+          "package_name": "com.furfetch.edriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92371812916-0ou3naub1si2jevqmoqgi22du8un5228.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzv8XjKLYRtT_dcWYtUf6OASpkV0wGrL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92371812916-0ou3naub1si2jevqmoqgi22du8un5228.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
