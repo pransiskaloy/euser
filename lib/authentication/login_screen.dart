@@ -173,11 +173,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.white70, fontSize: 18),
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (c) => SignUpScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (c) => const SignUpScreen()));
               },
             ),
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
             ElevatedButton(
               onPressed: () {

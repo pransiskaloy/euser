@@ -16,13 +16,13 @@ class MySplashScreen extends StatefulWidget {
 
 class _MySplashScreenState extends State<MySplashScreen> {
   startTimer() {
-    AssistantMethods.readCurrentOnlineUserInfo();
+    fAuth.currentUser != null ? AssistantMethods.readCurrentOnlineUserInfo() : null;
     Timer(const Duration(seconds: 3), () async {
       if (await fAuth.currentUser != null) {
         currentFirebaseUser = fAuth.currentUser;
-        Navigator.push(context, MaterialPageRoute(builder: (c) => MainScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const MainScreen()));
       } else {
-        Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
       }
     });
   }
@@ -48,7 +48,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
                   height: 10,
                 ),
                 const Text(
-                  "Furfetch App",
+                  "Ehatid App",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,

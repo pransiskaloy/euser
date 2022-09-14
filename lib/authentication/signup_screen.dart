@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         .user;
     if (firebaseUser != null) {
       Map userMap = {
-        "id": firebaseUser.uid,
+        "uid": firebaseUser.uid,
         "name": nameTextEditingController.text.trim(),
         "phone": phoneTextEditingController.text.trim(),
         "email": emailTextEditingController.text.trim(),

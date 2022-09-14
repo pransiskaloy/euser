@@ -1,3 +1,5 @@
+import 'package:euser/global/global.dart';
+import 'package:euser/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -15,8 +17,9 @@ class _MyDrawerState extends State<MyDrawer> {
     return Drawer(
       child: ListView(
         children: [
+          //drawer header
           Container(
-            height: 165,
+            height: 110,
             color: Colors.white,
             child: DrawerHeader(
               decoration: const BoxDecoration(
@@ -25,20 +28,21 @@ class _MyDrawerState extends State<MyDrawer> {
               child: Row(
                 children: [
                   const Icon(
-                    Icons.person,
-                    size: 40,
+                    Icons.person_rounded,
+                    size: 70,
                     color: Colors.blue,
                   ),
                   const SizedBox(
-                    width: 16,
+                    width: 5,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.name.toString(),
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 27,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
                         ),
@@ -48,7 +52,6 @@ class _MyDrawerState extends State<MyDrawer> {
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.grey,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -57,8 +60,118 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
           ),
-          //drawer header
+
+          const SizedBox(
+            height: 10.0,
+          ),
+
           //drawer body
+
+          GestureDetector(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(
+                Icons.person_rounded,
+                size: 37,
+                color: Colors.grey,
+              ),
+              title: Text(
+                "Visit Profile",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 19,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(
+                Icons.pets_rounded,
+                size: 37,
+                color: Colors.grey,
+              ),
+              title: Text(
+                "Pets",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 19,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(
+                Icons.history_rounded,
+                size: 37,
+                color: Colors.grey,
+              ),
+              title: Text(
+                "History",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 19,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(
+                Icons.warning_amber_rounded,
+                size: 37,
+                color: Colors.grey,
+              ),
+              title: Text(
+                "Reports",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 19,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: const ListTile(
+              leading: Icon(
+                Icons.info_outlined,
+                size: 37,
+                color: Colors.grey,
+              ),
+              title: Text(
+                "About",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 19,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              fAuth.signOut();
+              Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
+            },
+            child: const ListTile(
+              leading: Icon(
+                Icons.logout_rounded,
+                size: 37,
+                color: Colors.grey,
+              ),
+              title: Text(
+                "Logout",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 19,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
