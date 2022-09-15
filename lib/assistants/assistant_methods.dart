@@ -60,4 +60,15 @@ class AssistantMethods {
 
     return directionDetailsInfo;
   }
+
+  static double calculateFareAmountFromOriginToDestination(DirectionDetailsInfo directionDetailsInfo) {
+    double timeTraveledFarePerMinute = (directionDetailsInfo.duration_value! / 60) * 0.1; //0.1 is dollar charge per minute
+    double distanceTraveledFarePerKilometer = (directionDetailsInfo.duration_value! / 1000) * 0.1; //0.1 is dollar charge per minute
+
+    //1 USD = 54 Pesos
+    double totalFareAmount = timeTraveledFarePerMinute + distanceTraveledFarePerKilometer;
+    double localCurrencyTotalFare = totalFareAmount * 54;
+
+    return double.parse(localCurrencyTotalFare.toStringAsFixed(1));
+  }
 }

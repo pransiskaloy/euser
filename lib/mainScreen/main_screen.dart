@@ -6,7 +6,9 @@ import 'package:euser/global/global.dart';
 import 'package:euser/infoHandler/app_info.dart';
 import 'package:euser/main.dart';
 import 'package:euser/mainScreen/search_places_screen.dart';
+import 'package:euser/mainScreen/select_nearest_active_driver_screen.dart';
 import 'package:euser/models/active_nearby_available_drivers.dart';
+import 'package:euser/models/direction_details_info.dart';
 import 'package:euser/widgets/my_drawer.dart';
 import 'package:euser/widgets/progress_dialog.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -52,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
 
   bool openNavigationDrawer = true;
   bool activeNearbyDriverKeysLoaded = false;
-  BitmapDescriptor? activeNearbyIcon;
+  BitmapDescriptor? activeNearbyIcon; // for changing icon that appears on map
 
   List<ActiveNearbyAvailableDrivers> onlineNearbyAvailableDriversList = [];
 
@@ -369,7 +371,7 @@ class _MainScreenState extends State<MainScreen> {
 
   searchNearestOnlineDrivers() async {
     //no active driver nearby found
-    if (onlineNearbyAvailableDriversList.length == 0) {
+    if (onlineNearbyAvailableDriversList.isEmpty) {
       //cancel/delete Ride Request Information
       setState(() {
         polyLineSet.clear();
@@ -388,6 +390,8 @@ class _MainScreenState extends State<MainScreen> {
 
     //active drivers found
     await retrieveOnlineDriversInformation(onlineNearbyAvailableDriversList);
+
+    Navigator.push(context, MaterialPageRoute(builder: (c) => const SelectNearestActiveDriversScreen()));
   }
 
   retrieveOnlineDriversInformation(List onlineNearbyAvailableDriversList) async {
@@ -682,6 +686,10 @@ class _MainScreenState extends State<MainScreen> {
     );
 
     var directionDetailsInfo = await AssistantMethods.obtainOriginToDestinationDirectionDetails(originLatLng, destinationLatLng);
+
+    setState(() {
+      tripDirectionDetailsInfo = directionDetailsInfo;
+    });
 
     Navigator.pop(context);
 
