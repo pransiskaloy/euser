@@ -61,21 +61,21 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFF4F6CAD),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Image.asset("images/logo.png"),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Image.asset("images/pet.png"),
               ),
               const Text(
                 "Pet Information",
                 style: TextStyle(
                   fontSize: 26,
-                  color: Color(0xFF4F6CAD),
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -91,7 +91,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                     hintText: "Moley",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -102,7 +102,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -121,7 +121,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                     hintText: "White",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -132,7 +132,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -150,7 +150,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                     hintText: "Shitzu",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -161,7 +161,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -181,7 +181,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                   decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(width: 1, color: Colors.grey),
+                      borderSide: BorderSide(width: 1, color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -189,12 +189,12 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                     ),
                   ),
                   isExpanded: true,
-                  dropdownColor: Colors.grey.shade200,
+                  dropdownColor: Color.fromARGB(194, 255, 255, 255),
                   hint: const Text(
                     "Pet Type",
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                   ),
                   value: selectedPetType,
@@ -208,7 +208,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                       child: Text(
                         pet,
                         style: const TextStyle(
-                          color: Color(0xFF4F6CAD),
+                          color: Colors.white,
                         ),
                       ),
                       value: pet,
@@ -228,7 +228,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                     hintText: "Cute, like snowball..",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -239,7 +239,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
@@ -262,7 +262,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF4F6CAD),
+                  primary: const Color.fromARGB(255, 49, 140, 214),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
