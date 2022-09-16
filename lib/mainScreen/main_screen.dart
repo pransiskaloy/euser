@@ -58,6 +58,8 @@ class _MainScreenState extends State<MainScreen> {
 
   List<ActiveNearbyAvailableDrivers> onlineNearbyAvailableDriversList = [];
 
+  DatabaseReference? referenceRideRequest;
+
   checkIfLocationPermissionAllowed() async {
     _locationPermission = await Geolocator.requestPermission();
 
@@ -365,6 +367,33 @@ class _MainScreenState extends State<MainScreen> {
 
   saveRideRequestInformation() {
     //1. save the Ride Request Information
+    referenceRideRequest = FirebaseDatabase.instance.ref().child("All Ride Request").push(); //create a new personal ride request
+
+    var originLocation = Provider.of<AppInfo>(context, listen: false).userPickUpLocation;
+    var destinationLocation = Provider.of<AppInfo>(context, listen: false).userDropOffLocation;
+
+    Map originLocationMap = {
+      "latitude": originLocation!.locationLatitude.toString(),
+      "longitude": originLocation.locationLongitude.toString(),
+    };
+
+    Map destinationLocationMap = {
+      "latitude": destinationLocation!.locationLatitude.toString(),
+      "longitude": destinationLocation.locationLongitude.toString(),
+    };
+
+    Map userInformationMap = {
+      "origin": originLocationMap,
+      "destination": destinationLocationMap,
+      "time": DateTime.now().toString(),
+      "userName": userModelCurrentInfo!.name,
+      "userPhone": userModelCurrentInfo!.phone,
+      "originAddress": originLocation.locationName,
+      "destinationAddress": destinationLocation.locationName,
+      "driverId": "waiting",
+    };
+
+    referenceRideRequest!.set(userInformationMap);
     onlineNearbyAvailableDriversList = GeoFireAssistant.activeNearbyAvailableDriversList;
     searchNearestOnlineDrivers();
   }
@@ -373,6 +402,7 @@ class _MainScreenState extends State<MainScreen> {
     //no active driver nearby found
     if (onlineNearbyAvailableDriversList.isEmpty) {
       //cancel/delete Ride Request Information
+      referenceRideRequest!.remove();
       setState(() {
         polyLineSet.clear();
         markersSet.clear();
@@ -383,6 +413,7 @@ class _MainScreenState extends State<MainScreen> {
       Fluttertoast.showToast(msg: "Nearest online driver not found. Please try again. Restarting app now!", textColor: Colors.red);
 
       Future.delayed(const Duration(milliseconds: 4000), () {
+        // SystemNavigator.pop();
         MyApp.restartApp(context);
       });
       return;
@@ -391,7 +422,8 @@ class _MainScreenState extends State<MainScreen> {
     //active drivers found
     await retrieveOnlineDriversInformation(onlineNearbyAvailableDriversList);
 
-    Navigator.push(context, MaterialPageRoute(builder: (c) => const SelectNearestActiveDriversScreen()));
+    //referenceRideRequest is passed to SelectNearestActiveDriversScreen
+    Navigator.push(context, MaterialPageRoute(builder: (c) => SelectNearestActiveDriversScreen(referenceRideRequest: referenceRideRequest)));
   }
 
   retrieveOnlineDriversInformation(List onlineNearbyAvailableDriversList) async {

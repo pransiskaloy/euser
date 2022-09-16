@@ -1,9 +1,11 @@
 import 'package:euser/authentication/login_screen.dart';
+import 'package:euser/authentication/petinfo_screen.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
 import 'package:euser/widgets/progress_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../global/global.dart';
 
@@ -44,33 +46,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       },
     );
-    final User? firebaseUser = (await fAuth
-            .createUserWithEmailAndPassword(
-      email: emailTextEditingController.text.trim(),
-      password: passwordTextEditingController.text.trim(),
-    )
-            .catchError((msg) {
-      Navigator.pop(context);
-      showToaster(context, "Error: " + msg.toString(), 'fail');
-    }))
-        .user;
-    if (firebaseUser != null) {
-      Map userMap = {
-        "uid": firebaseUser.uid,
-        "name": nameTextEditingController.text.trim(),
-        "phone": phoneTextEditingController.text.trim(),
-        "email": emailTextEditingController.text.trim(),
-        "password": passwordTextEditingController.text.trim(),
-      };
-      DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("users");
-      driversRef.child(firebaseUser.uid).set(userMap);
+    try {
+      final User? firebaseUser = (await fAuth
+              .createUserWithEmailAndPassword(
+        email: emailTextEditingController.text.trim(),
+        password: passwordTextEditingController.text.trim(),
+      )
+              .catchError((msg) {
+        Navigator.pop(context);
+        showToaster(context, "Error: " + msg.toString(), 'fail');
+      }))
+          .user;
+      if (firebaseUser != null) {
+        Map userMap = {
+          "uid": firebaseUser.uid,
+          "name": nameTextEditingController.text.trim(),
+          "phone": phoneTextEditingController.text.trim(),
+          "email": emailTextEditingController.text.trim(),
+          "password": passwordTextEditingController.text.trim(),
+        };
+        DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("users");
+        driversRef.child(firebaseUser.uid).set(userMap);
 
-      currentFirebaseUser = firebaseUser;
-      showToaster(context, "Account has been created.", "success");
-      Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
-    } else {
-      Navigator.pop(context);
-      showToaster(context, "Account has not been Created.", "fail");
+        currentFirebaseUser = firebaseUser;
+        Fluttertoast.showToast(
+          msg: "Account information has been saved!",
+          backgroundColor: Colors.white,
+          textColor: Colors.green,
+        );
+        // Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const PetInfoScreen()));
+      } else {
+        Navigator.pop(context);
+        showToaster(context, "Account has not been Created.", "fail");
+      }
+    } on Exception catch (exe) {
+      Fluttertoast.showToast(
+        msg: "Email is existing. Please use different email.",
+        backgroundColor: Colors.black87,
+        textColor: Colors.red,
+      );
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: "E-hatid is not available for a moment.",
+        backgroundColor: Colors.black87,
+        textColor: Colors.red,
+      );
     }
   }
 
@@ -91,48 +112,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Image.asset("images/logo.png"),
-              ),
-              const SizedBox(
-                height: 10,
+                padding: const EdgeInsets.all(15.0),
+                child: Image.asset("images/register.png"),
               ),
               const Text(
-                "Register as User",
-                style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold),
+                "Register Account",
+                style: TextStyle(fontSize: 26, color: Color(0xFF4F6CAD), fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                 child: TextField(
                   controller: nameTextEditingController,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF4F6CAD),
                   ),
                   decoration: const InputDecoration(
                     labelText: "Full Name",
                     hintText: "Juan Dela Cruz",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
                     hintStyle: TextStyle(
-                      color: Colors.white38,
+                      color: Color.fromARGB(255, 187, 186, 186),
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.white70,
+                      color: Color(0xFF4F6CAD),
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -143,26 +162,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: emailTextEditingController,
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF4F6CAD),
                   ),
                   decoration: const InputDecoration(
                     labelText: "Email",
                     hintText: "jdcruz@gmail.com",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
                     hintStyle: TextStyle(
-                      color: Colors.white38,
+                      color: Color.fromARGB(255, 187, 186, 186),
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.white70,
+                      color: Color(0xFF4F6CAD),
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -173,26 +193,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   keyboardType: TextInputType.phone,
                   controller: phoneTextEditingController,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF4F6CAD),
                   ),
                   decoration: const InputDecoration(
                     labelText: "Phone",
                     hintText: "09xx-xxx-xxxx",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
                     hintStyle: TextStyle(
-                      color: Colors.white38,
+                      color: Color.fromARGB(255, 187, 186, 186),
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.white70,
+                      color: Color(0xFF4F6CAD),
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -204,26 +225,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF4F6CAD),
                   ),
                   decoration: const InputDecoration(
                     labelText: "Password",
                     hintText: "Password",
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
                     hintStyle: TextStyle(
-                      color: Colors.white38,
+                      color: Color.fromARGB(255, 187, 186, 186),
                       fontSize: 15,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.white70,
+                      color: Color(0xFF4F6CAD),
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -234,7 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextButton(
                 child: const Text(
                   "Already have an Account? Login here",
-                  style: TextStyle(color: Colors.white70, fontSize: 18),
+                  style: TextStyle(color: const Color(0xFF4F6CAD), fontSize: 18),
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
@@ -246,7 +268,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // showToaster(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue[400],
+                  primary: const Color(0xFF4F6CAD),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),

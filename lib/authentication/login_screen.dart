@@ -88,20 +88,22 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Image.asset("images/logo.png"),
+            const SizedBox(height: 35),
+            const Text(
+              "Login",
+              style: TextStyle(fontSize: 26, color: Color(0xFF4F6CAD), fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 10,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30),
+              child: Image.asset("images/login.png"),
             ),
             const Text(
-              "Welcome User",
-              style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold),
+              "Welcome to E-hatid",
+              style: TextStyle(fontSize: 26, color: Color(0xFF4F6CAD), fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -109,26 +111,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: emailTextEditingController,
                 keyboardType: TextInputType.emailAddress,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF4F6CAD),
                 ),
                 decoration: const InputDecoration(
                   labelText: "Email",
                   hintText: "jdcruz@gmail.com",
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                   ),
                   hintStyle: TextStyle(
-                    color: Colors.white38,
+                    color: Color.fromARGB(255, 187, 186, 186),
                     fontSize: 15,
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white70,
+                    color: Color(0xFF4F6CAD),
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -140,26 +143,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF4F6CAD),
                 ),
                 decoration: const InputDecoration(
                   labelText: "Password",
                   hintText: "Password",
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                   ),
                   hintStyle: TextStyle(
-                    color: Colors.white38,
+                    color: Color.fromARGB(255, 187, 186, 186),
                     fontSize: 15,
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white70,
+                    color: Color(0xFF4F6CAD),
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -170,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextButton(
               child: const Text(
                 "Don't have an Account? Sign Up here",
-                style: TextStyle(color: Colors.white70, fontSize: 18),
+                style: TextStyle(color: Color(0xFF4F6CAD), fontSize: 18),
               ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (c) => const SignUpScreen()));
@@ -184,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 validateForm(context);
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue[400],
+                primary: Color(0xFF4F6CAD),
               ),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
