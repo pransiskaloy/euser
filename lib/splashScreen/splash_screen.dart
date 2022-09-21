@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:euser/assistants/assistant_methods.dart';
+import 'package:euser/authentication/intro_screen.dart';
 import 'package:euser/authentication/login_screen.dart';
 import 'package:euser/global/global.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
         currentFirebaseUser = fAuth.currentUser;
         Navigator.push(context, MaterialPageRoute(builder: (c) => MainScreen()));
       } else {
-        Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const IntroScreen()));
       }
     });
   }
@@ -47,14 +48,14 @@ class _MySplashScreenState extends State<MySplashScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  "Ehatid App",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
+                // const Text(
+                //   "",
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //     color: Colors.white,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // )
               ],
             ),
           )),

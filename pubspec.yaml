@@ -45,6 +45,7 @@ dependencies:
   flutter_geofire: ^2.0.1
   fluttertoast: ^8.0.9
   smooth_star_rating_nsafe: ^1.0.0+1
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

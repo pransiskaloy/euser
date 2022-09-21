@@ -33,6 +33,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
       "pet_breed": petBreedTextEditingController.text.trim(),
       "pet_remarks": petRemarksTextEditingController.text.trim(),
       "date_added": DateTime.now().toString(),
+      "status": "active",
     };
     try {
       referencePet!.set(petInformationMap);
@@ -61,7 +62,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF4F6CAD),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
