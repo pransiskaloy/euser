@@ -40,7 +40,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.name.toString(),
+                        widget.name.toString().length > 18 ? widget.name.toString().substring(0, 18) + "..." : widget.name.toString(),
                         style: const TextStyle(
                           fontSize: 27,
                           color: Colors.grey,
@@ -48,7 +48,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                       ),
                       Text(
-                        widget.email.toString(),
+                        widget.email.toString().length > 20 ? widget.email.toString().substring(0, 20) + "..." : widget.email.toString(),
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.grey,

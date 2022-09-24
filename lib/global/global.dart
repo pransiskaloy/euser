@@ -11,4 +11,4 @@ UserModel? userModelCurrentInfo;
 List dList = []; //driverKeys Info List for ride request
 
 DirectionDetailsInfo? tripDirectionDetailsInfo; //for fare calculation
- 
+String? geoStatus;
