@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../global/global.dart';
 
@@ -21,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  bool _passwordVisible = false;
 
   validateForm(BuildContext context) {
     if (nameTextEditingController.text.length < 5) {
@@ -64,6 +66,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           "phone": phoneTextEditingController.text.trim(),
           "email": emailTextEditingController.text.trim(),
           "password": passwordTextEditingController.text.trim(),
+          "date_created": DateTime.now().toString(),
+          "status": "active",
         };
         DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("users");
         driversRef.child(firebaseUser.uid).set(userMap);
@@ -114,174 +118,243 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Image.asset("images/register.png"),
-              ),
-              const Text(
-                "Register Account",
-                style: TextStyle(fontSize: 26, color: Color(0xFF4F6CAD), fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                child: TextField(
-                  controller: nameTextEditingController,
-                  style: const TextStyle(
-                    color: Color(0xFF4F6CAD),
-                  ),
-                  decoration: const InputDecoration(
+        child: Column(
+          children: [
+            Image.asset("images/register.png"),
+            Container(
+              width: MediaQuery.of(context).size.width * .93,
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                controller: nameTextEditingController,
+                decoration: InputDecoration(
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Icon(
+                        Icons.person_rounded,
+                        color: Color(0xFF4F6CAD),
+                        size: 20,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 30),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                    ),
+                    filled: true,
+                    hintText: "Full Name...",
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 172, 170, 170),
+                      letterSpacing: 1.5,
+                    ),
                     labelText: "Full Name",
-                    hintText: "Juan Dela Cruz",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                    labelStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontSize: 18,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    fillColor: Colors.white70),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * .93,
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                controller: emailTextEditingController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Icon(
+                        Icons.mail_rounded,
+                        color: Color(0xFF4F6CAD),
+                        size: 20,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 30),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
                       borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 187, 186, 186),
-                      fontSize: 15,
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
-                    labelStyle: TextStyle(
-                      color: Color(0xFF4F6CAD),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    filled: true,
+                    hintText: "Email...",
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 172, 170, 170),
+                      letterSpacing: 1.5,
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                child: TextField(
-                  controller: emailTextEditingController,
-                  keyboardType: TextInputType.emailAddress,
-                  style: const TextStyle(
-                    color: Color(0xFF4F6CAD),
-                  ),
-                  decoration: const InputDecoration(
                     labelText: "Email",
-                    hintText: "jdcruz@gmail.com",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                    labelStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontSize: 18,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    fillColor: Colors.white70),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * .93,
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                keyboardType: TextInputType.phone,
+                controller: phoneTextEditingController,
+                decoration: InputDecoration(
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Icon(
+                        Icons.phone_rounded,
+                        color: Color(0xFF4F6CAD),
+                        size: 20,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 30),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
                       borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 187, 186, 186),
-                      fontSize: 15,
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
-                    labelStyle: TextStyle(
-                      color: Color(0xFF4F6CAD),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    filled: true,
+                    hintText: "09x-xxxx-xxx",
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 172, 170, 170),
+                      letterSpacing: 1.5,
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                child: TextField(
-                  keyboardType: TextInputType.phone,
-                  controller: phoneTextEditingController,
-                  style: const TextStyle(
-                    color: Color(0xFF4F6CAD),
-                  ),
-                  decoration: const InputDecoration(
                     labelText: "Phone",
-                    hintText: "09xx-xxx-xxxx",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                    labelStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontSize: 18,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    fillColor: Colors.white70),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * .93,
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                controller: passwordTextEditingController,
+                keyboardType: TextInputType.text,
+                obscureText: !_passwordVisible,
+                decoration: InputDecoration(
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Icon(
+                        Icons.lock_rounded,
+                        color: Color(0xFF4F6CAD),
+                        size: 20,
+                      ),
+                    ),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                          color: const Color(0xFF4F6CAD),
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          // Update the state i.e. toogle the state of passwordVisible variable
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 30),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
                       borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 187, 186, 186),
-                      fontSize: 15,
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                     ),
-                    labelStyle: TextStyle(
-                      color: Color(0xFF4F6CAD),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    filled: true,
+                    hintText: "*******",
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 172, 170, 170),
+                      letterSpacing: 1.5,
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                child: TextField(
-                  controller: passwordTextEditingController,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  style: const TextStyle(
-                    color: Color(0xFF4F6CAD),
-                  ),
-                  decoration: const InputDecoration(
                     labelText: "Password",
-                    hintText: "Password",
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+                    labelStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontSize: 18,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
-                    ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 187, 186, 186),
+                    fillColor: Colors.white70),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Already have an Account?",
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
                       fontSize: 15,
                     ),
-                    labelStyle: TextStyle(
-                      color: Color(0xFF4F6CAD),
+                  ),
+                ),
+                TextButton(
+                  child: Text("Login here",
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 17, fontWeight: FontWeight.bold),
+                      )),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                validateForm(context);
+                // showToaster(context);
+              },
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xFF4F6CAD),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50), // <-- Radius
+                ),
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width * .4,
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Text(
+                  "Proceed",
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      letterSpacing: 1,
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              TextButton(
-                child: const Text(
-                  "Already have an Account? Login here",
-                  style: TextStyle(color: const Color(0xFF4F6CAD), fontSize: 18),
-                ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  validateForm(context);
-                  // showToaster(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF4F6CAD),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                  child: Text(
-                    "Next",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:euser/assistants/request_assistant.dart';
+import 'package:euser/global/global.dart';
 import 'package:euser/global/maps_key.dart';
 import 'package:euser/infoHandler/app_info.dart';
 import 'package:euser/models/directions.dart';
@@ -7,11 +8,16 @@ import 'package:euser/widgets/progress_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PlacePredictionTile extends StatelessWidget {
+class PlacePredictionTile extends StatefulWidget {
   final PredictedPlaces? predictedPlaces;
 
   PlacePredictionTile({this.predictedPlaces});
 
+  @override
+  State<PlacePredictionTile> createState() => _PlacePredictionTileState();
+}
+
+class _PlacePredictionTileState extends State<PlacePredictionTile> {
   getPlaceDirectionDetails(String? placeId, context) async {
     showDialog(
       context: context,
@@ -38,6 +44,9 @@ class PlacePredictionTile extends StatelessWidget {
 
       Provider.of<AppInfo>(context, listen: false).updateDropOffLocation(directions);
 
+      setState(() {
+        userDropOffAddress = directions.locationName!;
+      });
       Navigator.pop(context, "obtainedDropOff");
     }
   }
@@ -46,7 +55,7 @@ class PlacePredictionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        getPlaceDirectionDetails(predictedPlaces!.place_id, context);
+        getPlaceDirectionDetails(widget.predictedPlaces!.place_id, context);
       },
       style: ElevatedButton.styleFrom(
         primary: Colors.white,
@@ -69,7 +78,7 @@ class PlacePredictionTile extends StatelessWidget {
                   height: 0.0,
                 ),
                 Text(
-                  predictedPlaces?.main_text ?? "",
+                  widget.predictedPlaces?.main_text ?? "",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 16.0,
@@ -80,7 +89,7 @@ class PlacePredictionTile extends StatelessWidget {
                   height: 2.0,
                 ),
                 Text(
-                  predictedPlaces?.secondary_text ?? "",
+                  widget.predictedPlaces?.secondary_text ?? "",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 12.0,

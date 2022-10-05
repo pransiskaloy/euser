@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:euser/assistants/assistant_methods.dart';
+import 'package:euser/authentication/intro_screen.dart';
 import 'package:euser/authentication/login_screen.dart';
 import 'package:euser/global/global.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
         currentFirebaseUser = fAuth.currentUser;
         Navigator.push(context, MaterialPageRoute(builder: (c) => MainScreen()));
       } else {
-        Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const IntroScreen()));
       }
     });
   }
@@ -38,26 +39,27 @@ class _MySplashScreenState extends State<MySplashScreen> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-          color: Colors.blue,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("images/logo.png"),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "Ehatid App",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-          )),
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.white,
+            Colors.grey,
+          ],
+        )),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("images/logo2.png"),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
