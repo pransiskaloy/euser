@@ -1,4 +1,7 @@
 import 'package:euser/global/global.dart';
+import 'package:euser/mainScreen/about_screen.dart';
+import 'package:euser/mainScreen/profile_screen.dart';
+import 'package:euser/mainScreen/trip_history_screen.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +46,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         widget.name.toString().length > 18 ? widget.name.toString().substring(0, 18) + "..." : widget.name.toString(),
                         style: const TextStyle(
                           fontSize: 27,
-                          color: Colors.grey,
+                          color: Color.fromRGBO(55, 55, 61, 100),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -51,7 +54,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         widget.email.toString().length > 20 ? widget.email.toString().substring(0, 20) + "..." : widget.email.toString(),
                         style: const TextStyle(
                           fontSize: 18,
-                          color: Colors.grey,
+                          color: Color.fromRGBO(55, 55, 61, 100),
                         ),
                       ),
                     ],
@@ -67,107 +70,137 @@ class _MyDrawerState extends State<MyDrawer> {
 
           //drawer body
 
-          GestureDetector(
-            onTap: () {},
-            child: const ListTile(
-              leading: Icon(
-                Icons.person_rounded,
-                size: 37,
-                color: Colors.grey,
-              ),
-              title: Text(
-                "Visit Profile",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 19,
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (builder) => ProfileScreen()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.person_rounded,
+                  size: 37,
+                  color: Color.fromRGBO(55, 55, 61, 100),
+                ),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(
+                    color: Color.fromRGBO(55, 55, 61, 100),
+                    fontSize: 19,
+                  ),
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: const ListTile(
-              leading: Icon(
-                Icons.pets_rounded,
-                size: 37,
-                color: Colors.grey,
-              ),
-              title: Text(
-                "Pets",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 19,
+
+          const SizedBox(height: 10),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {},
+              child: const ListTile(
+                leading: Icon(
+                  Icons.pets_rounded,
+                  size: 37,
+                  color: Color.fromRGBO(55, 55, 61, 100),
+                ),
+                title: Text(
+                  "Pets",
+                  style: TextStyle(
+                    color: Color.fromRGBO(55, 55, 61, 100),
+                    fontSize: 19,
+                  ),
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: const ListTile(
-              leading: Icon(
-                Icons.history_rounded,
-                size: 37,
-                color: Colors.grey,
-              ),
-              title: Text(
-                "History",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 19,
+          const SizedBox(height: 10),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (c) => const TripHistoryScreen()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.history_rounded,
+                  size: 37,
+                  color: Color.fromRGBO(55, 55, 61, 100),
+                ),
+                title: Text(
+                  "History",
+                  style: TextStyle(
+                    color: Color.fromRGBO(55, 55, 61, 100),
+                    fontSize: 19,
+                  ),
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: const ListTile(
-              leading: Icon(
-                Icons.warning_amber_rounded,
-                size: 37,
-                color: Colors.grey,
-              ),
-              title: Text(
-                "Reports",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 19,
+          const SizedBox(height: 10),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {},
+              child: const ListTile(
+                leading: Icon(
+                  Icons.warning_amber_rounded,
+                  size: 37,
+                  color: Color.fromRGBO(55, 55, 61, 100),
+                ),
+                title: Text(
+                  "Reports",
+                  style: TextStyle(
+                    color: Color.fromRGBO(55, 55, 61, 100),
+                    fontSize: 19,
+                  ),
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {},
-            child: const ListTile(
-              leading: Icon(
-                Icons.info_outlined,
-                size: 37,
-                color: Colors.grey,
-              ),
-              title: Text(
-                "About",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 19,
+          const SizedBox(height: 10),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (c) => const AboutScreen()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.info_outlined,
+                  size: 37,
+                  color: Color.fromRGBO(55, 55, 61, 100),
+                ),
+                title: Text(
+                  "About",
+                  style: TextStyle(
+                    color: Color.fromRGBO(55, 55, 61, 100),
+                    fontSize: 19,
+                  ),
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              fAuth.signOut();
-              Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
-            },
-            child: const ListTile(
-              leading: Icon(
-                Icons.logout_rounded,
-                size: 37,
-                color: Colors.grey,
-              ),
-              title: Text(
-                "Logout",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 19,
+          const SizedBox(height: 10),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: GestureDetector(
+              onTap: () {
+                fAuth.signOut();
+                Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
+              },
+              child: const ListTile(
+                leading: Icon(
+                  Icons.logout_rounded,
+                  size: 37,
+                  color: Colors.red,
+                ),
+                title: Text(
+                  "Logout",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 19,
+                  ),
                 ),
               ),
             ),
