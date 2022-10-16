@@ -11,12 +11,17 @@ class SearchPlacesScreen extends StatefulWidget {
 
 class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
   List<PredictedPlaces> placePredictedList = [];
+  bool focus = false;
+  var focusDestination = FocusNode();
+  var destinationController = TextEditingController();
 
   void findPlaceAutoCompleteSearch(String inputText) async {
     if (inputText.length > 1) {
-      String urlAutoCompleteSearch = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$inputText&location=7.1907,125.4553&radius=49436.8284&key=$mapKey&Components=country:ph&regions=postal_code:8000";
+      String urlAutoCompleteSearch =
+          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$inputText&location=7.1907,125.4553&radius=49436.8284&key=$mapKey&Components=country:ph&regions=postal_code:8000";
 
-      var responseAutoCompleteSearch = await RequestAssistant.receiveRequest(urlAutoCompleteSearch);
+      var responseAutoCompleteSearch =
+          await RequestAssistant.receiveRequest(urlAutoCompleteSearch);
 
       if (responseAutoCompleteSearch == "Error Occurred: No Response!") {
         return;
@@ -24,7 +29,9 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
       if (responseAutoCompleteSearch["status"] == "OK") {
         var placePredictions = responseAutoCompleteSearch["predictions"];
 
-        var placePredictionList = (placePredictions as List).map((jsonData) => PredictedPlaces.fromJson(jsonData)).toList();
+        var placePredictionList = (placePredictions as List)
+            .map((jsonData) => PredictedPlaces.fromJson(jsonData))
+            .toList();
 
         setState(() {
           placePredictedList = placePredictionList;
@@ -33,8 +40,16 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
     }
   }
 
+  void setFocus() {
+    if (!focus) {
+      FocusScope.of(context).requestFocus(focusDestination);
+      focus = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    setFocus();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -93,6 +108,8 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
                           onChanged: (valueTyped) {
                             findPlaceAutoCompleteSearch(valueTyped);
                           },
+                          focusNode: focusDestination,
+                          controller: destinationController,
                           decoration: InputDecoration(
                               prefixIcon: const Padding(
                                 padding: EdgeInsets.only(left: 10.0),
@@ -106,12 +123,16 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
                                 borderRadius: BorderRadius.circular(40.0),
                               ),
                               enabledBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                                borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40.0)),
+                                borderSide:
+                                    BorderSide(color: Color(0xFF4F6CAD)),
                               ),
                               focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                                borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40.0)),
+                                borderSide:
+                                    BorderSide(color: Color(0xFF4F6CAD)),
                               ),
                               filled: true,
                               hintText: "Search Drop-off Destination",

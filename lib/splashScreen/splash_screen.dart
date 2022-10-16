@@ -4,6 +4,7 @@ import 'package:euser/assistants/assistant_methods.dart';
 import 'package:euser/authentication/intro_screen.dart';
 import 'package:euser/authentication/login_screen.dart';
 import 'package:euser/global/global.dart';
+import 'package:euser/mainScreen/homer.dart';
 import 'package:flutter/material.dart';
 
 import '../mainScreen/main_screen.dart';
@@ -17,13 +18,18 @@ class MySplashScreen extends StatefulWidget {
 
 class _MySplashScreenState extends State<MySplashScreen> {
   startTimer() {
-    fAuth.currentUser != null ? AssistantMethods.readCurrentOnlineUserInfo() : null;
+    fAuth.currentUser != null
+        ? AssistantMethods.readCurrentOnlineUserInfo()
+        : null;
     Timer(const Duration(seconds: 3), () async {
       if (await fAuth.currentUser != null) {
         currentFirebaseUser = fAuth.currentUser;
-        Navigator.push(context, MaterialPageRoute(builder: (c) => MainScreen()));
+        Navigator.of(context).pop();
+        Navigator.push(context, MaterialPageRoute(builder: (c) => Home()));
       } else {
-        Navigator.push(context, MaterialPageRoute(builder: (c) => const IntroScreen()));
+        Navigator.of(context).pop();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const IntroScreen()));
       }
     });
   }

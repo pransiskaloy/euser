@@ -14,21 +14,34 @@ class SelectNearestActiveDriversScreen extends StatefulWidget {
   SelectNearestActiveDriversScreen({this.referenceRideRequest});
 
   @override
-  State<SelectNearestActiveDriversScreen> createState() => _SelectNearestActiveDriversScreenState();
+  State<SelectNearestActiveDriversScreen> createState() =>
+      _SelectNearestActiveDriversScreenState();
 }
 
-class _SelectNearestActiveDriversScreenState extends State<SelectNearestActiveDriversScreen> {
+class _SelectNearestActiveDriversScreenState
+    extends State<SelectNearestActiveDriversScreen> {
   String fareAmount = "";
   getFareAmountAccordingToVehicleType(int index) {
     if (tripDirectionDetailsInfo != null) {
       if (dList[index]["car_details"]["car_type"].toString() == "Motorcycle") {
-        fareAmount = (AssistantMethods.calculateFareAmountFromOriginToDestination(tripDirectionDetailsInfo!) / 2).toStringAsFixed(1);
+        fareAmount =
+            (AssistantMethods.calculateFareAmountFromOriginToDestination(
+                        tripDirectionDetailsInfo!) /
+                    2)
+                .toStringAsFixed(1);
       }
       if (dList[index]["car_details"]["car_type"].toString() == "Furfetch-x") {
-        fareAmount = (AssistantMethods.calculateFareAmountFromOriginToDestination(tripDirectionDetailsInfo!) * 2).toStringAsFixed(1);
+        fareAmount =
+            (AssistantMethods.calculateFareAmountFromOriginToDestination(
+                        tripDirectionDetailsInfo!) *
+                    2)
+                .toStringAsFixed(1);
       }
       if (dList[index]["car_details"]["car_type"].toString() == "Furfetch-go") {
-        fareAmount = (AssistantMethods.calculateFareAmountFromOriginToDestination(tripDirectionDetailsInfo!)).toString();
+        fareAmount =
+            (AssistantMethods.calculateFareAmountFromOriginToDestination(
+                    tripDirectionDetailsInfo!))
+                .toString();
       }
     }
     return fareAmount;
@@ -84,7 +97,9 @@ class _SelectNearestActiveDriversScreenState extends State<SelectNearestActiveDr
                   leading: Padding(
                     padding: const EdgeInsets.only(top: 2),
                     child: Image.asset(
-                      "images/" + dList[index]["car_details"]["car_type"].toString() + ".png",
+                      "images/" +
+                          dList[index]["car_details"]["car_type"].toString() +
+                          ".png",
                       width: 70,
                     ),
                   ),
