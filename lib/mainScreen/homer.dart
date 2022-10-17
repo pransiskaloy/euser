@@ -1,8 +1,13 @@
 import 'package:euser/assistants/assistant_methods.dart';
 import 'package:euser/mainScreen/main_screen.dart';
+import 'package:euser/mainScreen/profile_screen.dart';
+import 'package:euser/mainScreen/trip_history_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../global/global.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -33,15 +38,17 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                const Padding(
-                    padding: EdgeInsets.only(left: 20),
+                Padding(
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(
-                      "Ehatid +",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 30,
-                        fontFamily: 'Muli',
+                      "ehatid",
+                      style: GoogleFonts.baloo2(
+                        letterSpacing: -1,
+                        textStyle: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                        ),
                       ),
                     )),
                 const SizedBox(height: 20),
@@ -52,17 +59,17 @@ class _HomeState extends State<Home> {
                     children: [
                       Text(
                         "Category",
-                        style: TextStyle(
-                          fontFamily: 'Muli',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800],
-                        ),
+                        )),
                       ),
-                      Icon(
-                        Icons.more_horiz,
-                        color: Colors.grey[800],
-                      ),
+                      // Icon(
+                      //   Icons.more_horiz,
+                      //   color: Colors.grey[800],
+                      // ),
                     ],
                   ),
                 ),
@@ -84,33 +91,30 @@ class _HomeState extends State<Home> {
                               //     builder: (BuildContext context) =>
                               //         ChooseRideType());
                               Navigator.of(context).pop();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (c) => MainScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (c) => MainScreen()));
                             },
                           ),
                           buildPetCategory(
                             category: 'Profile',
                             color: Colors.white,
                             image: 'images/user.png',
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (builder) => ProfileScreen()));
+                            },
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          buildPetCategory(
-                              category: 'Wallet',
-                              color: Colors.white,
-                              image: 'images/wallet.png',
-                              onTap: () {}),
+                          buildPetCategory(category: 'Wallet', color: Colors.white, image: 'images/wallet.png', onTap: () {}),
                           buildPetCategory(
                             category: 'History',
                             color: Colors.white,
                             image: 'images/history.png',
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (c) => const TripHistoryScreen()));
+                            },
                           ),
                         ],
                       ),
@@ -124,17 +128,17 @@ class _HomeState extends State<Home> {
                     children: [
                       Text(
                         "Options",
-                        style: TextStyle(
-                          fontFamily: 'Muli',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[800],
-                        ),
+                        )),
                       ),
-                      Icon(
-                        Icons.more_horiz,
-                        color: Colors.grey[800],
-                      ),
+                      // Icon(
+                      //   Icons.more_horiz,
+                      //   color: Colors.grey[800],
+                      // ),
                     ],
                   ),
                 ),
@@ -145,16 +149,14 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          buildPetCategory(
-                              category: 'Support',
-                              color: Colors.white,
-                              image: 'images/wallet.png',
-                              onTap: () {}),
+                          buildPetCategory(category: 'Support', color: Colors.white, image: 'images/wallet.png', onTap: () {}),
                           buildPetCategory(
                             category: 'Log out',
                             color: Colors.white,
                             image: 'images/history.png',
-                            onTap: () {},
+                            onTap: () {
+                              fAuth.signOut();
+                            },
                           ),
                         ],
                       ),
@@ -169,14 +171,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildPetCategory(
-      {String? category, String? image, Color? color, onTap}) {
+  Widget buildPetCategory({String? category, String? image, Color? color, onTap}) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
         child: Container(
           height: 80,
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             border: Border.all(
@@ -207,7 +208,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 5),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,12 +218,11 @@ class _HomeState extends State<Home> {
                       category!,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: TextStyle(
-                        fontFamily: 'Muli',
+                      style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                        fontSize: 15,
                         color: Colors.grey[800],
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      )),
                     ),
                   ],
                 ),
