@@ -771,6 +771,7 @@ class _MainScreenState extends State<MainScreen> {
                   MaterialPageRoute(
                     builder: (c) => RateDriverScreen(
                       assignedDriverId: assignedDriverId,
+                      referenceRideRequest: referenceRideRequest!.key,
                     ),
                   ),
                 );

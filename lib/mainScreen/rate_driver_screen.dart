@@ -1,4 +1,5 @@
 import 'package:euser/global/global.dart';
+import 'package:euser/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +9,9 @@ import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
 
 class RateDriverScreen extends StatefulWidget {
   String? assignedDriverId;
+  String? referenceRideRequest;
 
-  RateDriverScreen({this.assignedDriverId});
+  RateDriverScreen({this.assignedDriverId, this.referenceRideRequest});
 
   @override
   State<RateDriverScreen> createState() => _RateDriverScreenState();
@@ -89,19 +91,25 @@ class _RateDriverScreenState extends State<RateDriverScreen> {
             ElevatedButton(
               onPressed: () {
                 DatabaseReference rateDriverRef = FirebaseDatabase.instance.ref().child("drivers").child(widget.assignedDriverId!).child("ratings");
-                rateDriverRef.once().then((snap) {
-                  if (snap.snapshot.value == null) {
-                    rateDriverRef.set(countRatingStar.toString());
-
-                    SystemNavigator.pop();
-                  } else {
-                    double pastRating = double.parse(snap.snapshot.value.toString());
-                    double totalRating = (pastRating + countRatingStar) / 2;
-
-                    SystemNavigator.pop();
-                  }
-
-                  Fluttertoast.showToast(msg: "Please restart the app");
+                DatabaseReference rateDriverTripRef = FirebaseDatabase.instance.ref().child("All Ride Request").child(widget.referenceRideRequest!).child("ratings");
+                rateDriverTripRef.once().then((value) {
+                  rateDriverTripRef.set(countRatingStar.toString());
+                  rateDriverRef.once().then((snap) {
+                    if (snap.snapshot.value == null) {
+                      rateDriverRef.set(countRatingStar.toString());
+                      setState(() {
+                        countRatingStar = 0.0;
+                        titleStarRating = "";
+                      });
+                      MyApp.restartApp(context);
+                    } else {
+                      double pastRating = double.parse(snap.snapshot.value.toString());
+                      double totalRating = (pastRating + countRatingStar) / 2;
+                      rateDriverRef.set(totalRating.toString());
+                      MyApp.restartApp(context);
+                    }
+                    Fluttertoast.showToast(msg: "Please restart the app");
+                  });
                 });
               },
               style: ElevatedButton.styleFrom(
