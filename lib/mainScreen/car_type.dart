@@ -1,5 +1,6 @@
 import 'package:euser/global/global.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CarType extends StatefulWidget {
   const CarType({Key? key}) : super(key: key);
@@ -12,24 +13,26 @@ class _CarTypeState extends State<CarType> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Container(
-        width: MediaQuery.of(context).size.width / 0.5,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(90),
-        ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * .8,
+        width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: const Text(
+                child: Text(
                   "Choose Car Type",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                  ),
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  )),
                 ),
               ),
               cars(() {
@@ -37,7 +40,7 @@ class _CarTypeState extends State<CarType> {
                   geoin = 'Motorcycle';
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Fsmall.png'),
+              }, context, 'Motorcycle.png'),
               const SizedBox(
                 height: 5,
               ),
@@ -46,7 +49,7 @@ class _CarTypeState extends State<CarType> {
                   geoin = 'Furfetch-go';
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Fmedium.png'),
+              }, context, 'Furfetch-go.png'),
               const SizedBox(
                 height: 5,
               ),
@@ -55,31 +58,25 @@ class _CarTypeState extends State<CarType> {
                   geoin = 'Furfetch-x';
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'FLarge.png'),
+              }, context, 'Furfetch-x.png'),
               const SizedBox(
-                height: 45,
+                height: 20,
               ),
               SizedBox(
                   width: double.infinity,
                   height: 56,
                   child: TextButton(
-                    style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: const BorderSide(
-                                        color: Colors.transparent)))),
+                    style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: const BorderSide(color: Colors.transparent)))),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text(
+                    child: Text(
                       "Cancel",
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
                         fontSize: 18,
-                        color: Colors.blue,
-                        fontFamily: 'Muli',
-                      ),
+                        color: Colors.red,
+                      )),
                     ),
                   )),
               const SizedBox(
@@ -93,53 +90,70 @@ class _CarTypeState extends State<CarType> {
   }
 
   Widget cars(onpress, BuildContext context, String image) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 1.5,
-      height: MediaQuery.of(context).size.height / 6,
-      child: ElevatedButton(
-        child: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(
-                right: 20,
-                left: 10,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            primary: const Color.fromARGB(255, 238, 240, 245),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20), // <-- Radius
+            ),
+          ),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 5,
               ),
-              child: SizedBox(
-                height: 40,
-                width: 40,
+              SizedBox(
+                height: 70,
+                width: 70,
                 child: Image.asset("images/$image"),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "FurS",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-                ),
-                Text(
-                  "Php 40.00",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[500],
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    image == "Motorcycle.png" ? "Motorcycle" : (image == "Furfetch-go.png" ? "Furfetch-go" : "Furfetch-x"),
+                    style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
+                    )),
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  "Small Vehicle Type",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                  Text(
+                    image == "Motorcycle.png" ? "Small Vehicle " : (image == "Furfetch-go.png" ? "Medium Vehicle " : "Large Vehicle "),
+                    style: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Php 40.00",
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: const Color.fromARGB(255, 219, 90, 90),
+                    ),
+                    // style: TextStyle(
+                    // ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          onPressed: onpress,
         ),
-        onPressed: onpress,
       ),
     );
   }
