@@ -820,7 +820,8 @@ class _MainScreenState extends State<MainScreen> {
       "originAddress": originLocation.locationName,
       "destinationAddress": destinationLocation.locationName,
       "driverId": "waiting",
-      "status": "pending"
+      "status": "pending",
+      "uid": referenceRideRequest!.key
     };
 
     referenceRideRequest!.set(userInformationMap);
