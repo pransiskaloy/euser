@@ -1,19 +1,23 @@
 import 'dart:async';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:euser/assistants/assistant_methods.dart';
 import 'package:euser/assistants/geofire_assistant.dart';
 import 'package:euser/global/global.dart';
 import 'package:euser/infoHandler/app_info.dart';
 import 'package:euser/main.dart';
+import 'package:euser/mainScreen/Search_folder/_normal_search/search_places_screen.dart';
+import 'package:euser/mainScreen/Search_folder/_normal_search/user_search.dart';
 import 'package:euser/mainScreen/car_type.dart';
 import 'package:euser/mainScreen/chat_screen.dart';
 import 'package:euser/mainScreen/rate_driver_screen.dart';
-import 'package:euser/mainScreen/search_places_screen.dart';
-import 'package:euser/mainScreen/select_nearest_active_driver_screen.dart';
 import 'package:euser/models/active_nearby_available_drivers.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
+import 'package:euser/widgets/divider.dart';
+import 'package:euser/widgets/main_button.dart';
 import 'package:euser/widgets/no_driver.dart';
 import 'package:euser/widgets/pay_fare_amount_dialog.dart';
 import 'package:euser/widgets/progress_dialog.dart';
+import 'package:euser/widgets/trip_cancelation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -42,12 +46,14 @@ class _MainScreenState extends State<MainScreen> {
 
   GlobalKey<ScaffoldState> sKey =
       GlobalKey<ScaffoldState>(); //this is for button drawer
-  double searchLocationContainerHeight = 330;
+  double searchLocationContainerHeight = 0;
   double waitingResponseFromDriverContainerHeight = 0;
   double assignedDriverInfoContainerHeight = 0;
   bool getLocation = true;
   bool showTopnavi = true;
+  bool showCancel = true;
   bool isRequest = true;
+
   Position? userCurrentPosition;
   var geolocator = Geolocator();
   LocationPermission? _locationPermission;
@@ -63,11 +69,16 @@ class _MainScreenState extends State<MainScreen> {
   BitmapDescriptor? activeNearbyIcon; // for changing icon that appears on map
   List<ActiveNearbyAvailableDrivers> onlineNearbyAvailableDriversList = [];
   DatabaseReference? referenceRideRequest;
-  String driverRideStatus = "Driver is Coming";
   String appState = 'Normal';
   StreamSubscription<DatabaseEvent>? tripRideRequestInfoSubscription;
   String userRideRequestStatus = "";
   bool requestPositionInfo = true;
+  //----------------->>>>>
+  double searchSheet = 340;
+  double tripDetailSheet = 0;
+  double loadingTrip = 0;
+  double tripSheet = 0;
+  double mapPadding = 0;
 
   @override
   void initState() {
@@ -85,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
       body: Stack(
         children: [
           GoogleMap(
-            padding: EdgeInsets.only(bottom: bottomPaddingOfMap),
+            padding: EdgeInsets.only(bottom: mapPadding),
             mapType: MapType.normal,
             myLocationEnabled: true,
             zoomGesturesEnabled: true,
@@ -112,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                                 builder: (c) => MySplashScreen()));
                       } else {
                         //Second Argument RESET APP
-                        // resetapp();
+                        resetapp();
                       }
                     },
                     child: Container(
@@ -142,7 +153,668 @@ class _MainScreenState extends State<MainScreen> {
                     height: 0,
                   ),
                 ),
-
+//==================SearchSHeet
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeIn,
+              child: Container(
+                height: searchSheet,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 15,
+                      spreadRadius: 0.5,
+                      offset: Offset(0.7, 0.7),
+                    )
+                  ],
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 5),
+                            const Text(
+                              'Hey There!',
+                              style: TextStyle(
+                                  fontFamily: 'Muli',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              'Where are we heading?',
+                              style: TextStyle(
+                                  fontFamily: 'Muli',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 20),
+                            GestureDetector(
+                              onTap: () async {
+                                var response = await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            UserSearch()));
+                                if (response == 'getDirections') {
+                                  showtripDetailsheet();
+                                  if (geostatus == false) {
+                                    initializeGeoFireListener();
+                                    setState(() {
+                                      geostatus = true;
+                                    });
+                                  }
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 5.0,
+                                          spreadRadius: 0.5,
+                                          offset: Offset(0.7, 0.7))
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    children: const [
+                                      Icon(
+                                        Icons.search,
+                                        color: Colors.blueAccent,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        'Input Destination',
+                                        style: TextStyle(fontFamily: 'Muli'),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.pets,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(width: 12),
+                                GestureDetector(
+                                  onTap: () async {
+                                    // var response = await Navigator.of(context)
+                                    //     .push(MaterialPageRoute(
+                                    //         builder: (BuildContext context) =>
+                                    //             Searchvet()));
+                                    // if (response == 'NearestVet') {
+                                    //   showtripDetailsheet();
+                                    //   if (geoStatus == null) {
+                                    //     startGeofireListener();
+                                    //     setState(() {
+                                    //       geoStatus = true;
+                                    //     });
+                                    //   }
+                                    // }
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Veterinary',
+                                        style: TextStyle(
+                                            fontFamily: 'Muli', fontSize: 16),
+                                      ),
+                                      const SizedBox(height: 3),
+                                      Text(
+                                        'Pick veterinary near you',
+                                        style: TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontSize: 12,
+                                          color: Colors.grey[400],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            CustomDivider(),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.shop,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(width: 12),
+                                GestureDetector(
+                                  onTap: () async {
+                                    // var response = await Navigator.of(context)
+                                    //     .push(MaterialPageRoute(
+                                    //         builder: (BuildContext context) =>
+                                    //             PetSearch()));
+                                    // if (response == 'PetStore') {
+                                    //   showtripDetailsheet();
+                                    //   if (geoStatus == null) {
+                                    //     startGeofireListener();
+                                    //     setState(() {
+                                    //       geoStatus = true;
+                                    //     });
+                                    //   }
+                                    // }
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Pet Shop',
+                                          style: TextStyle(
+                                              fontFamily: 'Muli', fontSize: 16),
+                                        ),
+                                        const SizedBox(height: 3),
+                                        Text(
+                                          'Pick pet shop near you',
+                                          style: TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontSize: 12,
+                                            color: Colors.grey[400],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            CustomDivider(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+//=================Trip DetailSHeet
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeIn,
+              child: Container(
+                height: tripDetailSheet,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 15,
+                        spreadRadius: 0.5,
+                        offset: Offset(0.7, 0.7),
+                      )
+                    ]),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              color: Colors.green[100],
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'images/man-carrying-a-dog-with-a-belt-to-walk.png',
+                                      height: 50,
+                                      width: 50,
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          (tripDirectionDetailsInfo != null)
+                                              ? tripDirectionDetailsInfo!
+                                                  .duration_text!
+                                              : 'Duration Text',
+                                          style: const TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          (tripDirectionDetailsInfo != null)
+                                              ? tripDirectionDetailsInfo!
+                                                  .distance_text!
+                                              : 'Distance Text',
+                                          style: const TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Expanded(child: Container()),
+                                    Text(
+                                      (tripDirectionDetailsInfo != null)
+                                          ? 'Php${AssistantMethods.estimatedFare(tripDirectionDetailsInfo!)}'
+                                          : 'Php2',
+                                      style: const TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 22),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.money,
+                                    size: 18,
+                                    color: Colors.green[400],
+                                  ),
+                                  const SizedBox(width: 16),
+                                  const Text(
+                                    'Cash',
+                                    style: TextStyle(fontFamily: 'Muli'),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  const Icon(Icons.keyboard_arrow_down,
+                                      color: Colors.grey, size: 16),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                            //------>//Button for Driver Request
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: MainButton(
+                                title: 'Proceed',
+                                color: Colors.blue.shade400,
+                                onpress: () async {
+                                  var response = await showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) =>
+                                          CarType());
+                                  if (response == 'Start') {
+                                    setState(() {
+                                      appState = 'Requesting';
+                                    });
+                                    showLoadingTrip();
+                                    onlineNearbyAvailableDriversList =
+                                        GeoFireAssistant
+                                            .activeNearbyAvailableDriversList;
+                                    findDriver();
+                                  }
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+// ===============Finding Driver Sheet
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeIn,
+              child: Container(
+                height: loadingTrip,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 15,
+                      spreadRadius: 0.5,
+                      offset: Offset(0.7, 0.7),
+                    )
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 18,
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: double.infinity,
+                              child: TextLiquidFill(
+                                text: 'Finding Your Driver.....',
+                                waveColor: Colors.greenAccent.shade400,
+                                boxBackgroundColor: Colors.white,
+                                textStyle: const TextStyle(
+                                  fontSize: 24,
+                                  fontFamily: 'Muli',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                boxHeight: 40,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            GestureDetector(
+                              onTap: () {
+                                //Cancel Request
+                                cancelRequest();
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(
+                                    width: 1.0,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                child: Icon(Icons.close, size: 25),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            const SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                'Cancel',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Muli',
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+// =============== Trip Detail SHeeet
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeIn,
+              child: Container(
+                height: tripSheet,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 15,
+                      spreadRadius: 0.5,
+                      offset: Offset(0.7, 0.7),
+                    )
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 18,
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  driverRideStatus,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontFamily: 'Muli',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            CustomDivider(),
+                            const SizedBox(height: 10),
+                            Text(
+                              driverCarDetail,
+                              style: TextStyle(
+                                fontFamily: 'Muli',
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              driverName,
+                              style: const TextStyle(
+                                fontFamily: 'Muli',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            CustomDivider(),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                //Messege Driver
+                                (showCancel == true)
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              // showDialog(
+                                              //     context: context,
+                                              //     barrierDismissible: false,
+                                              //     builder:
+                                              //         (BuildContext context) =>
+                                              //             ChatRoomList(
+                                              //                 tripID:
+                                              //                     tripRef.key));
+                                              // print("TRIP ID: " + tripRef.key);
+                                            },
+                                            child: Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(25)),
+                                                border: Border.all(
+                                                  width: 1.0,
+                                                  color: Colors.grey.shade400,
+                                                ),
+                                              ),
+                                              child: const Icon(Icons.call),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'Messege',
+                                            style: TextStyle(
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ],
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                      ),
+                                //Driver Info
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(25)),
+                                          border: Border.all(
+                                            width: 1.0,
+                                            color: Colors.grey.shade400,
+                                          ),
+                                        ),
+                                        child: const Icon(Icons.list),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const Text(
+                                      'Driver Info',
+                                      style: TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
+                                ),
+                                //Cancel
+                                (showCancel == true)
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () async {
+                                              var result = await showDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  builder: (BuildContext
+                                                          context) =>
+                                                      TripCancelationDialog());
+                                              if (result == 'proceed') {
+                                                referenceRideRequest!
+                                                    .onDisconnect();
+                                                tripRideRequestInfoSubscription!
+                                                    .cancel();
+                                                driverlocation = null;
+                                                getLocation = true;
+                                                referenceRideRequest!
+                                                    .child('status')
+                                                    .set('Canceled');
+                                                MyApp.restartApp(context);
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(25)),
+                                                border: Border.all(
+                                                  width: 1.0,
+                                                  color: Colors.grey.shade400,
+                                                ),
+                                              ),
+                                              child: const Icon(Icons.clear),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ],
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                      ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+//==============BAgas Design
           //ui for searching location
           Positioned(
             bottom: 0,
@@ -370,7 +1042,6 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-
           //ui for waiting response from driver
           Positioned(
             bottom: 0,
@@ -426,7 +1097,6 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-
           //ui for assigned driver information
           Positioned(
             bottom: 0,
@@ -566,6 +1236,59 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  //Trip sheet UI
+  void showTripsheet() {
+    setState(() {
+      loadingTrip = 0;
+      tripSheet = 340;
+      mapPadding = 340;
+    });
+  }
+
+  //Loading Trip UI'
+  void showLoadingTrip() {
+    setState(() {
+      tripDetailSheet = 0;
+      loadingTrip = 250;
+      mapPadding = 250;
+      showTopnavi = false;
+    });
+    createTripRequest();
+  }
+
+  //Show Trip Detail SHeet
+  void showtripDetailsheet() async {
+    await drawPolyLineFromOriginToDestination();
+    setState(() {
+      searchSheet = 0;
+      tripDetailSheet = 280;
+      mapPadding = 280;
+      isRequest = false;
+    });
+  }
+
+  void resetapp() {
+    setState(() {
+      polyLineCoOrdinatesList.clear();
+      polyLineSet.clear();
+      markersSet.clear();
+      circlesSet.clear();
+      tripDetailSheet = 0;
+      loadingTrip = 0;
+      searchSheet = 340;
+      mapPadding = 340;
+      isRequest = true;
+      showTopnavi = true;
+      tripSheet = 0;
+      counter = 0;
+      driverRideStatus = "Driver is Coming";
+      driverCarDetail = "";
+      driverName = "";
+      driverPhone = "";
+    });
+    locateUserPosition();
+  }
+
   showUiForAssignedDriver() {
     setState(() {
       searchLocationContainerHeight = 0;
@@ -588,7 +1311,7 @@ class _MainScreenState extends State<MainScreen> {
     _controllerGoogleMap.complete(controller);
     newGoogleMapController = controller;
     setState(() {
-      bottomPaddingOfMap = 330;
+      mapPadding = 340;
     });
     locateUserPosition();
   }
@@ -663,7 +1386,7 @@ class _MainScreenState extends State<MainScreen> {
           LatLngBounds(southwest: originLatLng, northeast: destinationLatLng);
     }
     newGoogleMapController!
-        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLng, 65));
+        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLng, 90));
     Marker originMarker = Marker(
       markerId: const MarkerId("originID"),
       infoWindow: InfoWindow(
@@ -686,14 +1409,14 @@ class _MainScreenState extends State<MainScreen> {
         circleId: const CircleId("originID"),
         fillColor: Colors.blue,
         radius: 12,
-        strokeWidth: 2,
+        strokeWidth: 3,
         strokeColor: Colors.white,
         center: originLatLng);
     Circle destinationCircle = Circle(
         circleId: const CircleId("destinationID"),
         fillColor: Colors.green,
         radius: 12,
-        strokeWidth: 2,
+        strokeWidth: 3,
         strokeColor: Colors.white,
         center: destinationLatLng);
     setState(() {
@@ -711,7 +1434,7 @@ class _MainScreenState extends State<MainScreen> {
     LatLng latLngPosition =
         LatLng(userCurrentPosition!.latitude, userCurrentPosition!.longitude);
     CameraPosition cameraPosition =
-        CameraPosition(target: latLngPosition, zoom: 14);
+        CameraPosition(target: latLngPosition, zoom: 16);
 
     newGoogleMapController!
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
@@ -724,7 +1447,7 @@ class _MainScreenState extends State<MainScreen> {
   //Display all nearby active-online drivers
   void initializeGeoFireListener() {
     Geofire.queryAtLocation(
-            userCurrentPosition!.latitude, userCurrentPosition!.longitude, 10)!
+            userCurrentPosition!.latitude, userCurrentPosition!.longitude, 3)!
         .listen((map) {
       if (map != null) {
         var callBack = map['callBack'];
@@ -884,10 +1607,12 @@ class _MainScreenState extends State<MainScreen> {
         //if status in ride request is ontrip
         if (userRideRequestStatus == "ontrip") {
           updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng);
+          showCancel = false;
         }
 
         if (userRideRequestStatus == "accepted") {
-          showUiForAssignedDriver();
+          showTripsheet();
+          removeGeofireMarkers();
         }
         //if status in ride request is ended
         if (userRideRequestStatus == "ended") {
@@ -924,6 +1649,10 @@ class _MainScreenState extends State<MainScreen> {
                 tripRideRequestInfoSubscription!.cancel();
                 driverlocation = null;
                 getLocation = true;
+                resetapp();
+                setState(() {
+                  showCancel = true;
+                });
               }
             }
           }
@@ -1034,6 +1763,7 @@ class _MainScreenState extends State<MainScreen> {
   //Cancel Trip Request
   void cancelRequest() {
     referenceRideRequest!.remove();
+    resetapp();
     setState(() {
       appState = 'Normal';
     });

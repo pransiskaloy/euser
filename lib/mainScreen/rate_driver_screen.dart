@@ -84,14 +84,23 @@ class _RateDriverScreenState extends State<RateDriverScreen> {
             Text(
               titleStarRating,
               style: GoogleFonts.poppins(
-                textStyle: const TextStyle(fontSize: 30, color: Color(0xFF4F6CAD)),
+                textStyle:
+                    const TextStyle(fontSize: 30, color: Color(0xFF4F6CAD)),
               ),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                DatabaseReference rateDriverRef = FirebaseDatabase.instance.ref().child("drivers").child(widget.assignedDriverId!).child("ratings");
-                DatabaseReference rateDriverTripRef = FirebaseDatabase.instance.ref().child("All Ride Request").child(widget.referenceRideRequest!).child("ratings");
+                DatabaseReference rateDriverRef = FirebaseDatabase.instance
+                    .ref()
+                    .child("drivers")
+                    .child(widget.assignedDriverId!)
+                    .child("ratings");
+                DatabaseReference rateDriverTripRef = FirebaseDatabase.instance
+                    .ref()
+                    .child("All Ride Request")
+                    .child(widget.referenceRideRequest!)
+                    .child("ratings");
                 rateDriverTripRef.once().then((value) {
                   rateDriverTripRef.set(countRatingStar.toString());
                   rateDriverRef.once().then((snap) {
@@ -103,18 +112,19 @@ class _RateDriverScreenState extends State<RateDriverScreen> {
                       });
                       MyApp.restartApp(context);
                     } else {
-                      double pastRating = double.parse(snap.snapshot.value.toString());
+                      double pastRating =
+                          double.parse(snap.snapshot.value.toString());
                       double totalRating = (pastRating + countRatingStar) / 2;
                       rateDriverRef.set(totalRating.toString());
                       MyApp.restartApp(context);
                     }
-                    Fluttertoast.showToast(msg: "Please restart the app");
                   });
                 });
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50), // <-- Radius
                 ),
@@ -122,7 +132,10 @@ class _RateDriverScreenState extends State<RateDriverScreen> {
               child: Text(
                 "SUBMIT",
                 style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white),
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.white),
                 ),
               ),
             ),

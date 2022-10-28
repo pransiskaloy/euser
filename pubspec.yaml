@@ -46,8 +46,10 @@ dependencies:
   fluttertoast: ^8.0.9
   smooth_star_rating_nsafe: ^1.0.0+1
   google_fonts: ^3.0.1
-  animated_text_kit: ^4.2.1
   intl: ^0.17.0
+  animated_text_kit: ^4.2.1
+  uuid: ^3.0.5
+  
 
 dev_dependencies:
   flutter_test:
@@ -87,8 +89,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
+  fonts:
+    - family: Muli
+      fonts:
+        - asset: fonts/Muli-Light.ttf
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf

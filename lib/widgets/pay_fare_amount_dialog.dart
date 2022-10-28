@@ -7,7 +7,8 @@ class PayFareAmountDialog extends StatefulWidget {
 
   PayFareAmountDialog({this.fareAmount});
   @override
-  State<PayFareAmountDialog> createState() => _FareAmountCollectionDialogState();
+  State<PayFareAmountDialog> createState() =>
+      _FareAmountCollectionDialogState();
 }
 
 class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
@@ -22,7 +23,8 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
         margin: const EdgeInsets.all(5),
         height: MediaQuery.of(context).size.height * .40,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(6)),
         child: Column(
           children: [
             const SizedBox(
@@ -31,7 +33,10 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
             Text(
               "Total Fare Amount".toUpperCase(),
               style: GoogleFonts.poppins(
-                textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Color(0xFF4F6CAD)),
+                textStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Color(0xFF4F6CAD)),
               ),
             ),
             const SizedBox(
@@ -79,7 +84,8 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 primary: Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50), // <-- Radius
