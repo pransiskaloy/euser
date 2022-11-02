@@ -7,6 +7,8 @@ import 'package:euser/infoHandler/app_info.dart';
 import 'package:euser/main.dart';
 import 'package:euser/mainScreen/Search_folder/_normal_search/search_places_screen.dart';
 import 'package:euser/mainScreen/Search_folder/_normal_search/user_search.dart';
+import 'package:euser/mainScreen/Search_folder/nearest_petstore/petshop_search.dart';
+import 'package:euser/mainScreen/Search_folder/nearest_vet/vetsearch.dart';
 import 'package:euser/mainScreen/car_type.dart';
 import 'package:euser/mainScreen/chat_screen.dart';
 import 'package:euser/mainScreen/rate_driver_screen.dart';
@@ -259,19 +261,19 @@ class _MainScreenState extends State<MainScreen> {
                                 const SizedBox(width: 12),
                                 GestureDetector(
                                   onTap: () async {
-                                    // var response = await Navigator.of(context)
-                                    //     .push(MaterialPageRoute(
-                                    //         builder: (BuildContext context) =>
-                                    //             Searchvet()));
-                                    // if (response == 'NearestVet') {
-                                    //   showtripDetailsheet();
-                                    //   if (geoStatus == null) {
-                                    //     startGeofireListener();
-                                    //     setState(() {
-                                    //       geoStatus = true;
-                                    //     });
-                                    //   }
-                                    // }
+                                    var response = await Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                VetSearch()));
+                                    if (response == 'NearestVet') {
+                                      showtripDetailsheet();
+                                      if (geostatus == false) {
+                                        initializeGeoFireListener();
+                                        setState(() {
+                                          geostatus = true;
+                                        });
+                                      }
+                                    }
                                   },
                                   child: Column(
                                     crossAxisAlignment:
@@ -308,19 +310,19 @@ class _MainScreenState extends State<MainScreen> {
                                 const SizedBox(width: 12),
                                 GestureDetector(
                                   onTap: () async {
-                                    // var response = await Navigator.of(context)
-                                    //     .push(MaterialPageRoute(
-                                    //         builder: (BuildContext context) =>
-                                    //             PetSearch()));
-                                    // if (response == 'PetStore') {
-                                    //   showtripDetailsheet();
-                                    //   if (geoStatus == null) {
-                                    //     startGeofireListener();
-                                    //     setState(() {
-                                    //       geoStatus = true;
-                                    //     });
-                                    //   }
-                                    // }
+                                    var response = await Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                PetSearch()));
+                                    if (response == 'PetStore') {
+                                      showtripDetailsheet();
+                                      if (geostatus == false) {
+                                        initializeGeoFireListener();
+                                        setState(() {
+                                          geostatus = true;
+                                        });
+                                      }
+                                    }
                                   },
                                   child: Container(
                                     child: Column(
@@ -681,15 +683,13 @@ class _MainScreenState extends State<MainScreen> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              // showDialog(
-                                              //     context: context,
-                                              //     barrierDismissible: false,
-                                              //     builder:
-                                              //         (BuildContext context) =>
-                                              //             ChatRoomList(
-                                              //                 tripID:
-                                              //                     tripRef.key));
-                                              // print("TRIP ID: " + tripRef.key);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (b) => ChatScreen(
+                                                          userRideRequestDetails:
+                                                              referenceRideRequest!
+                                                                  .key)));
                                             },
                                             child: Container(
                                               height: 50,
@@ -703,7 +703,8 @@ class _MainScreenState extends State<MainScreen> {
                                                   color: Colors.grey.shade400,
                                                 ),
                                               ),
-                                              child: const Icon(Icons.call),
+                                              child: const Icon(
+                                                  Icons.chat_bubble_rounded),
                                             ),
                                           ),
                                           const SizedBox(height: 10),
@@ -1797,13 +1798,18 @@ class _MainScreenState extends State<MainScreen> {
   void findDriver() {
     if (onlineNearbyAvailableDriversList.isEmpty) {
       cancelRequest();
+      resetapp();
       noDriversFound();
+      return;
     } else if (onlineNearbyAvailableDriversList.length < counter + 1) {
       cancelRequest();
+      resetapp();
       noDriversFound();
+      return;
+    } else {
+      var driver = onlineNearbyAvailableDriversList[counter];
+      notifyDriver(driver);
     }
-    var driver = onlineNearbyAvailableDriversList[counter];
-    notifyDriver(driver);
   }
 
   void noDriversFound() {

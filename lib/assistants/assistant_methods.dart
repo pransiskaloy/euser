@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:euser/assistants/request_assistant.dart';
 import 'package:euser/global/global.dart';
 import 'package:euser/global/maps_key.dart';
