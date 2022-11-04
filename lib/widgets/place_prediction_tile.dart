@@ -26,9 +26,11 @@ class _PlacePredictionTileState extends State<PlacePredictionTile> {
       ),
     );
 
-    String placeDirectionDetailsUrl = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$mapKey";
+    String placeDirectionDetailsUrl =
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$mapKey";
 
-    var responseApi = await RequestAssistant.receiveRequest(placeDirectionDetailsUrl);
+    var responseApi =
+        await RequestAssistant.receiveRequest(placeDirectionDetailsUrl);
 
     Navigator.pop(context);
     if (responseApi == "Error Occurred: No Response!") {
@@ -39,10 +41,13 @@ class _PlacePredictionTileState extends State<PlacePredictionTile> {
       Directions directions = Directions();
       directions.locationName = responseApi["result"]["name"];
       directions.locationId = placeId;
-      directions.locationLatitude = responseApi["result"]["geometry"]["location"]["lat"].toString();
-      directions.locationLongitude = responseApi["result"]["geometry"]["location"]["lng"].toString();
+      directions.locationLatitude =
+          responseApi["result"]["geometry"]["location"]["lat"].toString();
+      directions.locationLongitude =
+          responseApi["result"]["geometry"]["location"]["lng"].toString();
 
-      Provider.of<AppInfo>(context, listen: false).updateDropOffLocation(directions);
+      Provider.of<AppInfo>(context, listen: false)
+          .updateDropOffLocation(directions);
 
       setState(() {
         userDropOffAddress = directions.locationName!;

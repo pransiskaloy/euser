@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:euser/assistants/request_assistant.dart';
 import 'package:euser/global/global.dart';
 import 'package:euser/global/maps_key.dart';
@@ -78,21 +77,19 @@ class AssistantMethods {
     return directionDetailsInfo;
   }
 
-  static double calculateFareAmountFromOriginToDestination(
-      DirectionDetailsInfo directionDetailsInfo) {
+  static double estimatedFare(DirectionDetailsInfo directionDetailsInfo) {
+    double baseFare = 40;
     double timeTraveledFarePerMinute =
-        (directionDetailsInfo.duration_value! / 60) *
-            0.1; //0.1 is dollar charge per minute
+        (directionDetailsInfo.duration_value! / 100) *
+            3; //0.1 is dollar charge per minute
     double distanceTraveledFarePerKilometer =
-        (directionDetailsInfo.duration_value! / 1000) *
-            0.1; //0.1 is dollar charge per minute
+        (directionDetailsInfo.duration_value! / 60) *
+            2; //0.1 is dollar charge per minute
 
-    //1 USD = 54 Pesos
-    double totalFareAmount =
-        timeTraveledFarePerMinute + distanceTraveledFarePerKilometer;
-    double localCurrencyTotalFare = totalFareAmount * 54;
+    double totalFare =
+        baseFare + timeTraveledFarePerMinute + distanceTraveledFarePerKilometer;
 
-    return double.parse(localCurrencyTotalFare.toStringAsFixed(1));
+    return double.parse(totalFare.toStringAsFixed(1));
   }
 
   static sendNotificationToDriverNow(

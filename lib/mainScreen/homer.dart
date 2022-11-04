@@ -2,6 +2,7 @@ import 'package:euser/assistants/assistant_methods.dart';
 import 'package:euser/mainScreen/main_screen.dart';
 import 'package:euser/mainScreen/profile_screen.dart';
 import 'package:euser/mainScreen/trip_history_screen.dart';
+import 'package:euser/splashScreen/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -91,7 +92,10 @@ class _HomeState extends State<Home> {
                               //     builder: (BuildContext context) =>
                               //         ChooseRideType());
                               Navigator.of(context).pop();
-                              Navigator.push(context, MaterialPageRoute(builder: (c) => MainScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (c) => MainScreen()));
                             },
                           ),
                           buildPetCategory(
@@ -99,7 +103,10 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/user.png',
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (builder) => ProfileScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => ProfileScreen()));
                             },
                           ),
                         ],
@@ -107,13 +114,21 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          buildPetCategory(category: 'Wallet', color: Colors.white, image: 'images/wallet.png', onTap: () {}),
+                          buildPetCategory(
+                              category: 'Wallet',
+                              color: Colors.white,
+                              image: 'images/wallet.png',
+                              onTap: () {}),
                           buildPetCategory(
                             category: 'History',
                             color: Colors.white,
                             image: 'images/history.png',
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (c) => const TripHistoryScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (c) =>
+                                          const TripHistoryScreen()));
                             },
                           ),
                         ],
@@ -149,13 +164,22 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          buildPetCategory(category: 'Support', color: Colors.white, image: 'images/wallet.png', onTap: () {}),
+                          buildPetCategory(
+                              category: 'Support',
+                              color: Colors.white,
+                              image: 'images/wallet.png',
+                              onTap: () {}),
                           buildPetCategory(
                             category: 'Log out',
                             color: Colors.white,
                             image: 'images/history.png',
-                            onTap: () {
-                              fAuth.signOut();
+                            onTap: () async {
+                              await fAuth.signOut();
+                              Navigator.of(context).pop();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (c) => const MySplashScreen()));
                             },
                           ),
                         ],
@@ -171,7 +195,8 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildPetCategory({String? category, String? image, Color? color, onTap}) {
+  Widget buildPetCategory(
+      {String? category, String? image, Color? color, onTap}) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,

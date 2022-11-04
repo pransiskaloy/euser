@@ -17,6 +17,7 @@ String? chosenDriverId;
 String cloudMessagingServerToken =
     "key=AAAA0sQEtTs:APA91bG5R0q84dBjUxKP2B8kFgW-yc2ymvI7-_1sVC8VQPO0zQ-4CRdBjqjRpMRhNmc3zuvzkoCPsTk0ubVHAhgWtZQl5Id0UbVQVQqWuzVkX-rA4ziTjgqR2HfrTJ89tP_oUYXwx-Yq";
 String userDropOffAddress = "";
+String driverRideStatus = "Driver is Coming";
 String driverCarDetail = "";
 String driverName = "";
 String driverPhone = "";
