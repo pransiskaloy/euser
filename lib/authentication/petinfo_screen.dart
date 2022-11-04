@@ -1,4 +1,5 @@
 import 'package:euser/global/global.dart';
+import 'package:euser/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,13 +20,19 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
   TextEditingController petNameTextEditingController = TextEditingController();
   TextEditingController petColorTextEditingController = TextEditingController();
   TextEditingController petBreedTextEditingController = TextEditingController();
-  TextEditingController petRemarksTextEditingController = TextEditingController();
+  TextEditingController petRemarksTextEditingController =
+      TextEditingController();
 
   List<String> petTypesList = ["Cat", "Dog", "Others"];
   String? selectedPetType;
 
   savePetInfo() {
-    referencePet = FirebaseDatabase.instance.ref().child("users").child(currentFirebaseUser!.uid).child("Pet").push(); //create a new pet
+    referencePet = FirebaseDatabase.instance
+        .ref()
+        .child("users")
+        .child(currentFirebaseUser!.uid)
+        .child("Pet")
+        .push(); //create a new pet
 
     Map petInformationMap = {
       "pet_type": selectedPetType,
@@ -44,7 +51,7 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
         backgroundColor: Colors.white,
         textColor: Colors.green,
       );
-      Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
+      MyApp.restartApp(context);
     } on Exception catch (exe) {
       Fluttertoast.showToast(
         msg: exe.toString(),
@@ -69,7 +76,8 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
           children: [
             Image.asset("images/pet.png"),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
               child: TextField(
                 controller: petNameTextEditingController,
                 decoration: InputDecoration(
@@ -108,7 +116,8 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
               child: TextField(
                 controller: petColorTextEditingController,
                 decoration: InputDecoration(
@@ -147,7 +156,8 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
               child: TextField(
                 controller: petBreedTextEditingController,
                 decoration: InputDecoration(
@@ -189,7 +199,8 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
               height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
               child: DropdownButtonFormField(
                 icon: const Icon(
                   Icons.arrow_drop_down_rounded,
@@ -243,7 +254,8 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
               child: TextField(
                 controller: petRemarksTextEditingController,
                 decoration: InputDecoration(
@@ -287,7 +299,10 @@ class _PetInfoScreenState extends State<PetInfoScreen> {
             ElevatedButton(
               onPressed: () {
                 // Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
-                if (petBreedTextEditingController.text.isNotEmpty && petColorTextEditingController.text.isNotEmpty && petNameTextEditingController.text.isNotEmpty && petRemarksTextEditingController.text.isNotEmpty) {
+                if (petBreedTextEditingController.text.isNotEmpty &&
+                    petColorTextEditingController.text.isNotEmpty &&
+                    petNameTextEditingController.text.isNotEmpty &&
+                    petRemarksTextEditingController.text.isNotEmpty) {
                   savePetInfo();
                 } else {
                   Fluttertoast.showToast(

@@ -21,7 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
 
   validateForm(BuildContext context) {
-    if (!emailTextEditingController.text.contains("@") || !emailTextEditingController.text.contains(".")) {
+    if (!emailTextEditingController.text.contains("@") ||
+        !emailTextEditingController.text.contains(".")) {
       showToaster(context, "Please enter a valid email", 'fail');
     } else if (passwordTextEditingController.text.isNotEmpty) {
       if (passwordTextEditingController.text.length < 6) {
@@ -55,16 +56,19 @@ class _LoginScreenState extends State<LoginScreen> {
     }))
         .user;
     if (firebaseUser != null) {
-      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users");
+      DatabaseReference usersRef =
+          FirebaseDatabase.instance.ref().child("users");
       usersRef.child(firebaseUser.uid).once().then((userKey) {
         final snap = userKey.snapshot;
         if (snap.value != null) {
           currentFirebaseUser = firebaseUser;
-          Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (c) => const MySplashScreen()));
         } else {
           fAuth.signOut();
           showToaster(context, "No record exist with this credential.", "fail");
-          Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (c) => const LoginScreen()));
         }
       });
     } else {
@@ -80,9 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
       SnackBar(
         content: Text(
           str,
-          style: status == "success" ? const TextStyle(color: Colors.green, fontSize: 15) : const TextStyle(color: Colors.red, fontSize: 15),
+          style: status == "success"
+              ? const TextStyle(color: Colors.green, fontSize: 15)
+              : const TextStyle(color: Colors.red, fontSize: 15),
         ),
-        action: SnackBarAction(label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
@@ -164,7 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: IconButton(
                         icon: Icon(
                           // Based on passwordVisible state choose the icon
-                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: const Color(0xFF4F6CAD),
                           size: 20,
                         ),
@@ -233,10 +242,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextButton(
                   child: Text("Sign Up here",
                       style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 17, fontWeight: FontWeight.bold),
+                        textStyle: const TextStyle(
+                            color: Color(0xFF4F6CAD),
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
                       )),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (c) => const SignUpScreen()));
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (c) => const SignUpScreen()));
                   },
                 ),
               ],

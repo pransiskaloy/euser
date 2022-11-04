@@ -40,15 +40,21 @@ class _IntroScreenState extends State<IntroScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (c) => const LoginScreen()));
               },
               child: Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                 width: MediaQuery.of(context).size.width * .4,
                 child: Text(
                   "Get Started",
-                  style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
+                  style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
               ),
               style: ElevatedButton.styleFrom(

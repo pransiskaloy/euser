@@ -27,9 +27,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   validateForm(BuildContext context) {
     if (nameTextEditingController.text.length < 5) {
       showToaster(context, "Full Name must be at least 5 characters", 'fail');
-    } else if (!emailTextEditingController.text.contains("@") || !emailTextEditingController.text.contains(".")) {
+    } else if (!emailTextEditingController.text.contains("@") ||
+        !emailTextEditingController.text.contains(".")) {
       showToaster(context, "Please enter a valid email", 'fail');
-    } else if (phoneTextEditingController.text.length < 11 || phoneTextEditingController.text.length > 11) {
+    } else if (phoneTextEditingController.text.length < 11 ||
+        phoneTextEditingController.text.length > 11) {
       showToaster(context, "Phone must have 11 digit number", 'fail');
     } else if (passwordTextEditingController.text.length < 6) {
       showToaster(context, "Password must be at least 6 characters", 'fail');
@@ -69,7 +71,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           "date_created": DateTime.now().toString(),
           "status": "active",
         };
-        DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("users");
+        DatabaseReference driversRef =
+            FirebaseDatabase.instance.ref().child("users");
         driversRef.child(firebaseUser.uid).set(userMap);
 
         currentFirebaseUser = firebaseUser;
@@ -79,7 +82,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textColor: Colors.green,
         );
         // Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
-        Navigator.push(context, MaterialPageRoute(builder: (c) => const PetInfoScreen()));
+        Navigator.of(context).pop();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const PetInfoScreen()));
       } else {
         Navigator.pop(context);
         showToaster(context, "Account has not been Created.", "fail");
@@ -106,9 +111,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       SnackBar(
         content: Text(
           str,
-          style: status == "success" ? const TextStyle(color: Colors.green, fontSize: 15) : const TextStyle(color: Colors.red, fontSize: 15),
+          style: status == "success"
+              ? const TextStyle(color: Colors.green, fontSize: 15)
+              : const TextStyle(color: Colors.red, fontSize: 15),
         ),
-        action: SnackBarAction(label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'Close', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
@@ -264,7 +272,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: IconButton(
                         icon: Icon(
                           // Based on passwordVisible state choose the icon
-                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: const Color(0xFF4F6CAD),
                           size: 20,
                         ),
@@ -317,10 +327,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 TextButton(
                   child: Text("Login here",
                       style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 17, fontWeight: FontWeight.bold),
+                        textStyle: const TextStyle(
+                            color: Color(0xFF4F6CAD),
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
                       )),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => const LoginScreen()));
                   },
                 ),
               ],
