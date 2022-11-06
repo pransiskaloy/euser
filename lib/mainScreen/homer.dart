@@ -1,9 +1,9 @@
 import 'package:euser/assistants/assistant_methods.dart';
 import 'package:euser/mainScreen/main_screen.dart';
+import 'package:euser/mainScreen/pet_information.dart';
 import 'package:euser/mainScreen/profile_screen.dart';
 import 'package:euser/mainScreen/trip_history_screen.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +20,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     AssistantMethods.readCurrentOnlineUserInfo();
   }
@@ -86,16 +85,10 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/new_trip.png',
                             onTap: () {
-                              // showDialog(
-                              //     context: context,
-                              //     barrierDismissible: true,
-                              //     builder: (BuildContext context) =>
-                              //         ChooseRideType());
-                              Navigator.of(context).pop();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (c) => MainScreen()));
+                                      builder: (c) => PetInformation()));
                             },
                           ),
                           buildPetCategory(

@@ -1,6 +1,8 @@
 import 'package:euser/global/global.dart';
 import 'package:euser/widgets/info_display.dart';
+import 'package:euser/widgets/profile_edit.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -29,7 +31,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         title: Text(
           "Back",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: const Color.fromRGBO(55, 55, 61, 100)),
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold,
+              color: const Color.fromRGBO(55, 55, 61, 100)),
         ),
       ),
       body: SafeArea(
@@ -40,7 +44,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Text(
             userModelCurrentInfo!.name!,
             style: GoogleFonts.poppins(
-              textStyle: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color.fromRGBO(55, 55, 61, 100)),
+              textStyle: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(55, 55, 61, 100)),
             ),
           ),
           SizedBox(
@@ -51,16 +58,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           const SizedBox(height: 10),
           //phone
-          InfoDesign(
-            textInfo: userModelCurrentInfo!.phone,
-            iconData: Icons.phone_android_rounded,
-          ),
+          GestureDetector(
+              child: InfoDesign(
+                textInfo: userModelCurrentInfo!.phone,
+                iconData: Icons.phone_android_rounded,
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (c) => ProfileEdit(
+                            title: 'Edit Phone Number', edits: 'phone')));
+              }),
           const SizedBox(height: 10),
 
           //email
-          InfoDesign(
-            textInfo: userModelCurrentInfo!.email,
-            iconData: Icons.mail_outline_rounded,
+          GestureDetector(
+            child: InfoDesign(
+              textInfo: userModelCurrentInfo!.email,
+              iconData: Icons.mail_outline_rounded,
+            ),
+            onTap: () {
+              Fluttertoast.showToast(
+                  msg: "Cannot Edit Email",
+                  backgroundColor: Colors.white,
+                  textColor: Colors.green,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.TOP);
+            },
           ),
         ],
       )),
