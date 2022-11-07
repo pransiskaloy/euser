@@ -31,7 +31,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final String petQuantity;
+  final String petDescription;
+  const MainScreen(
+      {Key? key, required this.petQuantity, required this.petDescription})
+      : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -1513,7 +1517,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
 //Create Trip Request in database
-  createTripRequest() {
+  void createTripRequest() {
     referenceRideRequest = FirebaseDatabase.instance
         .ref()
         .child("All Ride Request")
@@ -1545,7 +1549,9 @@ class _MainScreenState extends State<MainScreen> {
       "destinationAddress": destinationLocation.locationName,
       "driverId": "waiting",
       "status": "pending",
-      "uid": referenceRideRequest!.key
+      "uid": referenceRideRequest!.key,
+      "petQuantity": widget.petQuantity,
+      "petDescription": widget.petDescription,
     };
 
     referenceRideRequest!.set(userInformationMap);

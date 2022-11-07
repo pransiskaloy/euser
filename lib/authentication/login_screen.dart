@@ -1,3 +1,4 @@
+import 'package:euser/authentication/forgotPassword.dart';
 import 'package:euser/authentication/signup_screen.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -207,22 +208,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     fillColor: Colors.white70),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 45),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "Forgot Password",
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontSize: 15,
-                        color: Color(0xFF4F6CAD),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 45),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Forgot Password",
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFF4F6CAD),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (c) => ForgotPassword()));
+              },
             ),
             const SizedBox(
               height: 25,

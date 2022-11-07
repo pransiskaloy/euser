@@ -66,7 +66,13 @@ class _CarTypeState extends State<CarType> {
                   width: double.infinity,
                   height: 56,
                   child: TextButton(
-                    style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0), side: const BorderSide(color: Colors.transparent)))),
+                    style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: const BorderSide(
+                                        color: Colors.transparent)))),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -120,7 +126,11 @@ class _CarTypeState extends State<CarType> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    image == "Motorcycle.png" ? "Motorcycle" : (image == "Furfetch-go.png" ? "Furfetch-go" : "Furfetch-x"),
+                    image == "Motorcycle.png"
+                        ? "Motorcycle"
+                        : (image == "Furfetch-go.png"
+                            ? "Furfetch-go"
+                            : "Furfetch-x"),
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                       color: Color(0xFF4F6CAD),
@@ -129,7 +139,11 @@ class _CarTypeState extends State<CarType> {
                     )),
                   ),
                   Text(
-                    image == "Motorcycle.png" ? "Small Vehicle " : (image == "Furfetch-go.png" ? "Medium Vehicle " : "Large Vehicle "),
+                    image == "Motorcycle.png"
+                        ? "Small Vehicle "
+                        : (image == "Furfetch-go.png"
+                            ? "Medium Vehicle "
+                            : "Large Vehicle "),
                     style: const TextStyle(
                       color: Color(0xFF4F6CAD),
                       fontSize: 12,
