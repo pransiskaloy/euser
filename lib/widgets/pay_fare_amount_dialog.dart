@@ -31,7 +31,7 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
               height: 20,
             ),
             Text(
-              "Total Fare Amount".toUpperCase(),
+              "You have arrived at your destination".toUpperCase(),
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
               height: 20,
             ),
             Text(
-              "Please pay the total trip amount!",
+              "Total Amount",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(color: Colors.red, fontSize: 12),

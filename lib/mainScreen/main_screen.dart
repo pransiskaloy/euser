@@ -1642,6 +1642,7 @@ class _MainScreenState extends State<MainScreen> {
               if ((eventSnap.snapshot.value as Map)["driverId"] != null) {
                 String assignedDriverId =
                     (eventSnap.snapshot.value as Map)["driverId"].toString();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
