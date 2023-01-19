@@ -19,21 +19,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: Colors.blue,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text(
-          "Back",
+          "Profile",
           style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
-              color: const Color.fromRGBO(55, 55, 61, 100)),
+              color: Colors.white),
         ),
       ),
       body: SafeArea(

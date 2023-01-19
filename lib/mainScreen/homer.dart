@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
                       style: GoogleFonts.baloo2(
                         letterSpacing: -1,
                         textStyle: const TextStyle(
-                          color: Colors.black,
+                          color: Color(0xFF4F6CAD),
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),
@@ -66,10 +66,6 @@ class _HomeState extends State<Home> {
                           color: Colors.grey[800],
                         )),
                       ),
-                      // Icon(
-                      //   Icons.more_horiz,
-                      //   color: Colors.grey[800],
-                      // ),
                     ],
                   ),
                 ),
@@ -81,7 +77,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           buildPetCategory(
-                            category: 'Set Trip',
+                            category: 'Book a Ride',
                             color: Colors.white,
                             image: 'images/new_trip.png',
                             onTap: () {
@@ -91,27 +87,6 @@ class _HomeState extends State<Home> {
                                       builder: (c) => PetInformation()));
                             },
                           ),
-                          buildPetCategory(
-                            category: 'Profile',
-                            color: Colors.white,
-                            image: 'images/user.png',
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => ProfileScreen()));
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          buildPetCategory(
-                              category: 'Wallet',
-                              color: Colors.white,
-                              image: 'images/wallet.png',
-                              onTap: () {}),
                           buildPetCategory(
                             category: 'History',
                             color: Colors.white,
@@ -124,6 +99,7 @@ class _HomeState extends State<Home> {
                                           const TripHistoryScreen()));
                             },
                           ),
+                          
                         ],
                       ),
                     ],
@@ -143,10 +119,6 @@ class _HomeState extends State<Home> {
                           color: Colors.grey[800],
                         )),
                       ),
-                      // Icon(
-                      //   Icons.more_horiz,
-                      //   color: Colors.grey[800],
-                      // ),
                     ],
                   ),
                 ),
@@ -160,12 +132,29 @@ class _HomeState extends State<Home> {
                           buildPetCategory(
                               category: 'Support',
                               color: Colors.white,
-                              image: 'images/wallet.png',
+                              image: 'images/customer-service.png',
                               onTap: () {}),
+                              buildPetCategory(
+                            category: 'Profile',
+                            color: Colors.white,
+                            image: 'images/user.png',
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => ProfileScreen()));
+                            },
+                          ),
+                          
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
                           buildPetCategory(
                             category: 'Log out',
                             color: Colors.white,
-                            image: 'images/history.png',
+                            image: 'images/exit.png',
                             onTap: () async {
                               await fAuth.signOut();
                               Navigator.of(context).pop();
@@ -176,7 +165,7 @@ class _HomeState extends State<Home> {
                             },
                           ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),

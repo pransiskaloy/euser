@@ -18,102 +18,142 @@ class _PetInformationState extends State<PetInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(
+                'Pet Information',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontFamily: 'Muli', fontSize: 25),
+              ),),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: Text(
-                'Pet Information',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'Muli', fontSize: 25),
-              ),
-            ),
             Container(
-              width: MediaQuery.of(context).size.width * .93,
-              padding: const EdgeInsets.all(15),
-              child: TextField(
-                keyboardType: TextInputType.phone,
-                controller: petQuantity,
-                decoration: InputDecoration(
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: Icon(
-                        Icons.queue_play_next_outlined,
-                        color: Color(0xFF4F6CAD),
-                        size: 20,
+              margin: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(13),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    spreadRadius: 1,
+                    blurRadius: 9.0,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(
+                          "images/quantity.png",
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
+                      SizedBox(width: 5,),
+                      Text("No. of Pet",style: GoogleFonts.poppins(textStyle:TextStyle(
+                        fontWeight: FontWeight.bold,fontSize: 20,
+                      ),),),                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width *.2,
+                    // padding: const EdgeInsets.all(15),
+                    child: TextField(
+                      keyboardType: TextInputType.phone,
+                      controller: petQuantity,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 30),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                            borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                            borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                          ),
+                          filled: true,
+                          hintText: "1",
+                          hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 172, 170, 170),
+                            letterSpacing: 1.5,
+                          ),
+                          fillColor: Colors.white70),
                     ),
-                    contentPadding: const EdgeInsets.only(left: 30),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
-                    ),
-                    filled: true,
-                    hintText: "ex. 2",
-                    hintStyle: const TextStyle(
-                      color: Color.fromARGB(255, 172, 170, 170),
-                      letterSpacing: 1.5,
-                    ),
-                    labelText: "Pet Quantity",
-                    labelStyle: const TextStyle(
-                      color: Color(0xFF4F6CAD),
-                      fontSize: 18,
-                    ),
-                    fillColor: Colors.white70),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 10),
             Container(
-              width: MediaQuery.of(context).size.width * .93,
-              padding: const EdgeInsets.all(15),
-              child: TextField(
-                maxLines: 10,
-                controller: petDescription,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: Icon(
-                        Icons.description,
-                        color: Color(0xFF4F6CAD),
-                        size: 20,
+              margin: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(13),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    spreadRadius: 1,
+                    blurRadius: 9.0,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 12,),
+                      SizedBox(
+                        height: 45,
+                        width: 45,
+                        child: Image.asset(
+                          "images/notes.png",
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
+                      SizedBox(width: 5,),
+                      Text("Description",style: GoogleFonts.poppins(textStyle:TextStyle(
+                        fontWeight: FontWeight.bold,fontSize: 20,
+                      ),),),                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * .89,
+                    padding: const EdgeInsets.all(15),
+                    child: TextField(
+                      maxLines: 9,
+                      style: GoogleFonts.poppins(textStyle:TextStyle(fontSize: 18)),
+                      controller: petDescription,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 20,top:20),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                          ),
+                          filled: true,
+                          hintText: "Desrciption",
+                          hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 172, 170, 170),
+                            letterSpacing: 1.5,
+                          ),
+                          fillColor: Colors.white70),
                     ),
-                    contentPadding: const EdgeInsets.only(left: 30),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
-                    ),
-                    filled: true,
-                    hintText: "ex. 1 Dog 1 Cat",
-                    hintStyle: const TextStyle(
-                      color: Color.fromARGB(255, 172, 170, 170),
-                      letterSpacing: 1.5,
-                    ),
-                    labelText: "Desrciption",
-                    labelStyle: const TextStyle(
-                      color: Color(0xFF4F6CAD),
-                      fontSize: 18,
-                    ),
-                    fillColor: Colors.white70),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 10),

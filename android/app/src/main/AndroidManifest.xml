@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/> 
 
    <application
-        android:label="euser"
+        android:label="Ehatid"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
