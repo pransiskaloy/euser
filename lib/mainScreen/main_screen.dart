@@ -1446,7 +1446,7 @@ class _MainScreenState extends State<MainScreen> {
     String humanReadableAddress =
         await AssistantMethods.searchAddressForGeographicCoordinates(
             userCurrentPosition!, context);
-    AssistantMethods.readTripKeysForOnlineUser(context);
+    // AssistantMethods.readTripKeysForOnlineUser(context);
   }
 
   //Display all nearby active-online drivers
