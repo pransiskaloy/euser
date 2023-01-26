@@ -1,6 +1,8 @@
 import 'package:euser/authentication/forgotPassword.dart';
 import 'package:euser/authentication/signup_screen.dart';
+import 'package:euser/main.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
+import 'package:euser/widgets/keyboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -63,13 +65,11 @@ class _LoginScreenState extends State<LoginScreen> {
         final snap = userKey.snapshot;
         if (snap.value != null) {
           currentFirebaseUser = firebaseUser;
-          Navigator.push(context,
-              MaterialPageRoute(builder: (c) => const MySplashScreen()));
+          MyApp.restartApp(context);
         } else {
           fAuth.signOut();
           showToaster(context, "No record exist with this credential.", "fail");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+          MyApp.restartApp(context);
         }
       });
     } else {
@@ -269,6 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: () {
+                KeyboardUtil.hideKeyboard(context);
                 validateForm(context);
               },
               style: ElevatedButton.styleFrom(
