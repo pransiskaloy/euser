@@ -3,6 +3,7 @@ import 'package:euser/global/maps_key.dart';
 import 'package:euser/models/predicted_places.dart';
 import 'package:euser/widgets/place_prediction_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class SearchPlacesScreen extends StatefulWidget {
   @override
@@ -16,9 +17,10 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
   var destinationController = TextEditingController();
 
   void findPlaceAutoCompleteSearch(String inputText) async {
-    if (inputText.length > 1) {
+    var uuid = const Uuid();
+    if (inputText.length > 3) {
       String urlAutoCompleteSearch =
-          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$inputText&location=7.1907,125.4553&radius=49436.8284&key=$mapKey&Components=country:ph&regions=postal_code:8000";
+          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$inputText&location=7.1907,125.4553&radius=2444&key=$mapKey&sessiontoken=${uuid.v4()}&components=country:ph&regions=postal_code:8000";
 
       var responseAutoCompleteSearch =
           await RequestAssistant.receiveRequest(urlAutoCompleteSearch);

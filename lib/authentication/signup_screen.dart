@@ -1,6 +1,7 @@
 import 'package:euser/authentication/login_screen.dart';
 import 'package:euser/authentication/petinfo_screen.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
+import 'package:euser/widgets/keyboard.dart';
 import 'package:euser/widgets/progress_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -22,6 +23,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController confirmpasswordTextEditingController =
+      TextEditingController();
   bool _passwordVisible = false;
 
   validateForm(BuildContext context) {
@@ -35,6 +38,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       showToaster(context, "Phone must have 11 digit number", 'fail');
     } else if (passwordTextEditingController.text.length < 6) {
       showToaster(context, "Password must be at least 6 characters", 'fail');
+    } else if (passwordTextEditingController.text !=
+        confirmpasswordTextEditingController.text) {
+      showToaster(context, "Password do not match please try again", 'fail');
     } else {
       saveUserInfo();
     }
@@ -312,6 +318,67 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fillColor: Colors.white70),
               ),
             ),
+            Container(
+              width: MediaQuery.of(context).size.width * .93,
+              padding: const EdgeInsets.all(15),
+              child: TextField(
+                controller: confirmpasswordTextEditingController,
+                keyboardType: TextInputType.text,
+                obscureText: !_passwordVisible,
+                decoration: InputDecoration(
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: Icon(
+                        Icons.lock_rounded,
+                        color: Color(0xFF4F6CAD),
+                        size: 20,
+                      ),
+                    ),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: IconButton(
+                        icon: Icon(
+                          // Based on passwordVisible state choose the icon
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: const Color(0xFF4F6CAD),
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          // Update the state i.e. toogle the state of passwordVisible variable
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 30),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      borderSide: BorderSide(color: Color(0xFF4F6CAD)),
+                    ),
+                    filled: true,
+                    hintText: "*******",
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 172, 170, 170),
+                      letterSpacing: 1.5,
+                    ),
+                    labelText: "Confirm Password",
+                    labelStyle: const TextStyle(
+                      color: Color(0xFF4F6CAD),
+                      fontSize: 18,
+                    ),
+                    fillColor: Colors.white70),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -333,6 +400,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontWeight: FontWeight.bold),
                       )),
                   onPressed: () {
+                    Navigator.of(context).pop();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (c) => const LoginScreen()));
                   },
@@ -1002,6 +1070,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             ElevatedButton(
               onPressed: () {
+                KeyboardUtil.hideKeyboard(context);
                 validateForm(context);
                 // showToaster(context);
               },
