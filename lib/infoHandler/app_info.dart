@@ -19,16 +19,19 @@ class AppInfo extends ChangeNotifier {
   }
 
   updateOverAllTripsCounter(int overAllTripsCounter) {
+    countTotalTrips = 0;
     countTotalTrips = overAllTripsCounter;
     notifyListeners();
   }
 
   updateOverAllTripsKeys(List<String> tripsKeyList) {
+    historyTripsKeysList = [];
     historyTripsKeysList = tripsKeyList;
     notifyListeners();
   }
 
   updateOverAllHistoryInformation(TripsHistoryModel eachHistoryTrip) {
+    allTripsHistoryInformationList.clear();
     allTripsHistoryInformationList.add(eachHistoryTrip);
     notifyListeners();
   }

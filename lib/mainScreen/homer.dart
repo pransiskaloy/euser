@@ -26,6 +26,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    callTripHistory();
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -99,7 +101,6 @@ class _HomeState extends State<Home> {
                                           const TripHistoryScreen()));
                             },
                           ),
-                          
                         ],
                       ),
                     ],
@@ -130,11 +131,6 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           buildPetCategory(
-                              category: 'Support',
-                              color: Colors.white,
-                              image: 'images/customer-service.png',
-                              onTap: () {}),
-                              buildPetCategory(
                             category: 'Profile',
                             color: Colors.white,
                             image: 'images/user.png',
@@ -145,7 +141,12 @@ class _HomeState extends State<Home> {
                                       builder: (builder) => ProfileScreen()));
                             },
                           ),
-                          
+                          buildPetCategory(
+                            category: 'Support',
+                            color: Colors.white,
+                            image: 'images/customer-service.png',
+                            onTap: () {},
+                          ),
                         ],
                       ),
                       Row(
@@ -175,6 +176,10 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void callTripHistory() {
+    AssistantMethods.readTripKeysForOnlineUser(context);
   }
 
   Widget buildPetCategory(

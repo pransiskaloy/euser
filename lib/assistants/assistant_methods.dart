@@ -133,7 +133,7 @@ class AssistantMethods {
         .ref()
         .child("All Ride Request")
         .orderByChild("userId")
-        .equalTo(userModelCurrentInfo!.uid)
+        .equalTo(fAuth.currentUser!.uid)
         .once()
         .then((snap) {
       if (snap.snapshot.value != null) {

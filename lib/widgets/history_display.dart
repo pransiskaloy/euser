@@ -16,7 +16,8 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
   String formatDate(String dateTimeFromDB) {
     DateTime dateTime = DateTime.parse(dateTimeFromDB);
     //Dec 10 , 2022 , 12:00 pm
-    String formattedDate = "${DateFormat.MMMd().format(dateTime)}, ${DateFormat.y().format(dateTime)} ";
+    String formattedDate =
+        "${DateFormat.MMMd().format(dateTime)}, ${DateFormat.y().format(dateTime)} ";
 
     return formattedDate;
   }
@@ -70,7 +71,9 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  formatDate(widget.tripHistoryModel!.endTime!) + " - " + formatTime(widget.tripHistoryModel!.endTime!),
+                  formatDate(widget.tripHistoryModel!.endTime!) +
+                      " - " +
+                      formatTime(widget.tripHistoryModel!.endTime!),
                   style: GoogleFonts.poppins(
                     textStyle: const TextStyle(fontSize: 12),
                   ),
@@ -98,85 +101,147 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                                   ),
                                 ],
                               ),
-                              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Center(
-                                  child: Text("Trip Details",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                                      )),
-                                ),
-                                const SizedBox(height: 10),
-                                const Divider(thickness: 1),
-                                const SizedBox(height: 10),
-                                //Driver detail
-                                Text("Driver's Name",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                    )),
-                                Text(widget.tripHistoryModel!.driverName!,
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 19),
-                                    )),
-                                const SizedBox(height: 10),
-                                // //car details
-                                Text("Car Info",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                    )),
-                                Text(widget.tripHistoryModel!.carDetails!,
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 20),
-                                    )),
-                                const SizedBox(height: 10),
-                                //origin detail
-                                Text("From",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                    )),
-                                Flexible(
-                                  child: Text(widget.tripHistoryModel!.originAddress!,
-                                      style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(fontSize: 15),
-                                      )),
-                                ),
-                                const SizedBox(height: 10),
-                                //destination detail
-                                Text("To",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                    )),
-                                Flexible(
-                                  child: Text(widget.tripHistoryModel!.destinationAddress!,
-                                      style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(fontSize: 15),
-                                      )),
-                                ),
-                                const SizedBox(height: 10),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Text("Trip Details",
+                                          style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const Divider(thickness: 1),
+                                    const SizedBox(height: 10),
+                                    //Driver detail
+                                    Text("Driver's Name",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(widget.tripHistoryModel!.driverName!,
+                                        style: GoogleFonts.poppins(
+                                          textStyle:
+                                              const TextStyle(fontSize: 19),
+                                        )),
+                                    const SizedBox(height: 10),
+                                    // //car details
+                                    Text("Car Info",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(widget.tripHistoryModel!.carDetails!,
+                                        style: GoogleFonts.poppins(
+                                          textStyle:
+                                              const TextStyle(fontSize: 20),
+                                        )),
+                                    const SizedBox(height: 10),
+                                    //origin detail
+                                    Text("From",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Flexible(
+                                      child: Text(
+                                          widget
+                                              .tripHistoryModel!.originAddress!,
+                                          style: GoogleFonts.poppins(
+                                            textStyle:
+                                                const TextStyle(fontSize: 15),
+                                          )),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    //destination detail
+                                    Text("To",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Flexible(
+                                      child: Text(
+                                          widget.tripHistoryModel!
+                                              .destinationAddress!,
+                                          style: GoogleFonts.poppins(
+                                            textStyle:
+                                                const TextStyle(fontSize: 15),
+                                          )),
+                                    ),
+                                    const SizedBox(height: 10),
 
-                                //date
-                                Text("Date",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                    )),
-                                Text(
-                                  formatDate(widget.tripHistoryModel!.endTime!) + " - " + formatTime(widget.tripHistoryModel!.endTime!),
-                                  style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                //fare amount
-                                Text("Fare Amount",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                    )),
-                                Text(
-                                  "PHP " + widget.tripHistoryModel!.fareAmount!,
-                                  style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                              ]),
+                                    //date
+                                    Text("Date",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(
+                                      formatDate(widget
+                                              .tripHistoryModel!.endTime!) +
+                                          " - " +
+                                          formatTime(widget
+                                              .tripHistoryModel!.endTime!),
+                                      style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    //fare amount
+                                    Text("Fare Amount",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(
+                                      "PHP " +
+                                          widget.tripHistoryModel!.fareAmount!,
+                                      style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    //pet Quantity
+                                    Text("No. of Pet",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(
+                                      widget.tripHistoryModel?.petQuantity ??
+                                          '',
+                                      style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                    //pet Description
+                                    Text("Pet Description",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(
+                                      widget.tripHistoryModel?.petDescription ??
+                                          '',
+                                      style: GoogleFonts.poppins(
+                                        textStyle:
+                                            const TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                  ]),
                             ),
                           ),
                         );
@@ -186,7 +251,8 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                   child: Text(
                     "View Details",
                     style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(fontSize: 12, color: Colors.blue),
+                      textStyle:
+                          const TextStyle(fontSize: 12, color: Colors.blue),
                     ),
                   ),
                 ),
