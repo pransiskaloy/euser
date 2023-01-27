@@ -646,36 +646,89 @@ class _MainScreenState extends State<MainScreen> {
                                 Text(
                                   driverRideStatus,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: 'Muli',
+                                  style: GoogleFonts.poppins(
+                                      textStyle: const TextStyle(
+                                    color: Color(0xFF4F6CAD),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
-                                  ),
+                                  )),
                                 )
                               ],
                             ),
                             const SizedBox(height: 10),
                             CustomDivider(),
-                            const SizedBox(height: 10),
-                            Text(
-                              driverCarDetail,
-                              style: TextStyle(
-                                fontFamily: 'Muli',
-                                color: Colors.grey[700],
-                                fontWeight: FontWeight.w400,
-                              ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "images/driver.png",
+                                  width: 45,
+                                  height: 45,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        driverName,
+                                        style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                          color: Color(0xFF4F6CAD),
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600,
+                                        )),
+                                      ),
+                                      Text(
+                                        driverPhone,
+                                        style: TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontSize: 17,
+                                          color: Colors.grey[700],
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                            Text(
-                              driverName,
-                              style: const TextStyle(
-                                fontFamily: 'Muli',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
                             const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "images/carsolo.png",
+                                  width: 45,
+                                  height: 45,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        driverCarDetail,
+                                        style: GoogleFonts.poppins(
+                                            textStyle: const TextStyle(
+                                          color: Color(0xFF4F6CAD),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        )),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 30),
                             CustomDivider(),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -685,38 +738,43 @@ class _MainScreenState extends State<MainScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
+                                          ElevatedButton.icon(
+                                            onPressed: () {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (b) => ChatScreen(
+                                                      builder: (builder) => ChatScreen(
                                                           userRideRequestDetails:
                                                               referenceRideRequest!
                                                                   .key)));
                                             },
-                                            child: Container(
-                                              height: 50,
-                                              width: 50,
-                                              decoration: BoxDecoration(
+                                            icon: const Icon(
+                                              Icons.chat_rounded,
+                                              color: Colors.white,
+                                              size: 25,
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
+                                              primary: Colors.blueAccent,
+                                              shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(25)),
-                                                border: Border.all(
-                                                  width: 1.0,
-                                                  color: Colors.grey.shade400,
+                                                    BorderRadius.circular(
+                                                        50), // <-- Radius
+                                              ),
+                                            ),
+                                            label: Text(
+                                              "Chat",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              child: const Icon(
-                                                  Icons.chat_bubble_rounded),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          const Text(
-                                            'Messege',
-                                            style: TextStyle(
-                                                fontFamily: 'Muli',
-                                                fontWeight: FontWeight.w700),
                                           ),
                                         ],
                                       )
@@ -724,35 +782,7 @@ class _MainScreenState extends State<MainScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                       ),
-                                //Driver Info
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(25)),
-                                          border: Border.all(
-                                            width: 1.0,
-                                            color: Colors.grey.shade400,
-                                          ),
-                                        ),
-                                        child: const Icon(Icons.list),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Driver Info',
-                                      style: TextStyle(
-                                          fontFamily: 'Muli',
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                  ],
-                                ),
+
                                 //Cancel
                                 (showCancel == true)
                                     ? Column(
@@ -781,26 +811,40 @@ class _MainScreenState extends State<MainScreen> {
                                               }
                                             },
                                             child: Container(
-                                              height: 50,
-                                              width: 50,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15,
+                                                      vertical: 10),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(25)),
                                                 border: Border.all(
                                                   width: 1.0,
-                                                  color: Colors.grey.shade400,
+                                                  color: Colors.red,
                                                 ),
                                               ),
-                                              child: const Icon(Icons.clear),
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.clear,
+                                                    color: Colors.red,
+                                                  ),
+                                                  Text(
+                                                    'Cancel',
+                                                    style: GoogleFonts.poppins(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        color: Colors.red,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          const Text(
-                                            'Cancel',
-                                            style: TextStyle(
-                                                fontFamily: 'Muli',
-                                                fontWeight: FontWeight.w700),
                                           ),
                                         ],
                                       )
@@ -1212,23 +1256,6 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                         ),
-                        // ElevatedButton.icon(
-                        //   onPressed: () {},
-                        //   style: ElevatedButton.styleFrom(
-                        //     primary: Colors.blue,
-                        //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(50), // <-- Radius
-                        //     ),
-                        //   ),
-                        //   icon: const Icon(Icons.phone_android_rounded, color: Colors.white, size: 22),
-                        //   label: Text(
-                        //     "Call",
-                        //     style: GoogleFonts.poppins(
-                        //       textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     )
                   ],
