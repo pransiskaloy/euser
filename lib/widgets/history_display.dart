@@ -53,14 +53,19 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.tripHistoryModel!.driverName!,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(fontSize: 17),
-                    )),
+                Text(
+                  widget.tripHistoryModel!.driverName!,
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF354859)),
+                  ),
+                ),
                 Text(
                   "PHP " + widget.tripHistoryModel!.fareAmount!,
                   style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(fontSize: 12),
+                    textStyle: const TextStyle(fontSize: 15),
                   ),
                 ),
               ],
@@ -88,7 +93,7 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                           child: Center(
                             child: Container(
                               padding: const EdgeInsets.all(20),
-                              height: MediaQuery.of(context).size.height * .7,
+                              height: MediaQuery.of(context).size.height * .75,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -123,6 +128,7 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                                               fontWeight: FontWeight.bold),
                                         )),
                                     Text(widget.tripHistoryModel!.driverName!,
+                                        textAlign: TextAlign.justify,
                                         style: GoogleFonts.poppins(
                                           textStyle:
                                               const TextStyle(fontSize: 19),
@@ -136,6 +142,7 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                                               fontWeight: FontWeight.bold),
                                         )),
                                     Text(widget.tripHistoryModel!.carDetails!,
+                                        textAlign: TextAlign.justify,
                                         style: GoogleFonts.poppins(
                                           textStyle:
                                               const TextStyle(fontSize: 20),
@@ -148,15 +155,13 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold),
                                         )),
-                                    Flexible(
-                                      child: Text(
-                                          widget
-                                              .tripHistoryModel!.originAddress!,
-                                          style: GoogleFonts.poppins(
-                                            textStyle:
-                                                const TextStyle(fontSize: 15),
-                                          )),
-                                    ),
+                                    Text(
+                                        widget.tripHistoryModel!.originAddress!,
+                                        textAlign: TextAlign.justify,
+                                        style: GoogleFonts.poppins(
+                                          textStyle:
+                                              const TextStyle(fontSize: 15),
+                                        )),
                                     const SizedBox(height: 10),
                                     //destination detail
                                     Text("To",
@@ -165,15 +170,14 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold),
                                         )),
-                                    Flexible(
-                                      child: Text(
-                                          widget.tripHistoryModel!
-                                              .destinationAddress!,
-                                          style: GoogleFonts.poppins(
-                                            textStyle:
-                                                const TextStyle(fontSize: 15),
-                                          )),
-                                    ),
+                                    Text(
+                                        widget.tripHistoryModel!
+                                            .destinationAddress!,
+                                        textAlign: TextAlign.justify,
+                                        style: GoogleFonts.poppins(
+                                          textStyle:
+                                              const TextStyle(fontSize: 15),
+                                        )),
                                     const SizedBox(height: 10),
 
                                     //date
@@ -228,6 +232,7 @@ class _HistoryDisplayState extends State<HistoryDisplay> {
                                     ),
                                     //pet Description
                                     Text("Pet Description",
+                                        textAlign: TextAlign.justify,
                                         style: GoogleFonts.poppins(
                                           textStyle: const TextStyle(
                                               fontSize: 12,

@@ -22,12 +22,11 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     AssistantMethods.readCurrentOnlineUserInfo();
+    AssistantMethods.readTripKeysForOnlineUser(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    callTripHistory();
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -176,10 +175,6 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void callTripHistory() {
-    AssistantMethods.readTripKeysForOnlineUser(context);
   }
 
   Widget buildPetCategory(

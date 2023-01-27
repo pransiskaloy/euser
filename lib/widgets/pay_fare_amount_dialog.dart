@@ -21,26 +21,27 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
       backgroundColor: Colors.white,
       child: Container(
         margin: const EdgeInsets.all(5),
-        height: MediaQuery.of(context).size.height * .40,
+        height: MediaQuery.of(context).size.height * .45,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(6)),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 20,
+              height: 5,
             ),
             Text(
-              "You have arrived at your destination".toUpperCase(),
+              "Trip Ended".toUpperCase(),
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 17,
+                    fontSize: 38,
                     color: Color(0xFF4F6CAD)),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 5,
             ),
             const Divider(
               thickness: 1,
@@ -62,10 +63,10 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
               height: 20,
             ),
             Text(
-              "Total Amount",
+              "Please pay the total amount!",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
-                textStyle: const TextStyle(color: Colors.red, fontSize: 12),
+                textStyle: const TextStyle(color: Colors.red, fontSize: 18),
               ),
             ),
             const SizedBox(
@@ -92,7 +93,7 @@ class _FareAmountCollectionDialogState extends State<PayFareAmountDialog> {
                 ),
               ),
               child: Text(
-                "Pay Cash",
+                "Cash Paid",
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
                     color: Colors.white,

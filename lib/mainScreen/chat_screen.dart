@@ -1,9 +1,9 @@
 import 'package:euser/global/global.dart';
 import 'package:euser/models/message.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   String? userRideRequestDetails;
@@ -27,7 +27,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   saveChatMessage() {
     if (messageTextEditingController.text.toString() != "") {
-      referenceChatMessage = FirebaseDatabase.instance.ref().child("All Ride Request").child(widget.userRideRequestDetails!).child("chats").push();
+      referenceChatMessage = FirebaseDatabase.instance
+          .ref()
+          .child("All Ride Request")
+          .child(widget.userRideRequestDetails!)
+          .child("chats")
+          .push();
       Map chatMessageMap = {
         "senderId": fAuth.currentUser!.uid,
         "textMessage": messageTextEditingController.text.toString(),
@@ -61,11 +66,21 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Positioned(
             child: StreamBuilder(
-              stream: FirebaseDatabase.instance.ref().child("All Ride Request").child(widget.userRideRequestDetails!).child("chats").orderByChild('time').onValue,
+              stream: FirebaseDatabase.instance
+                  .ref()
+                  .child("All Ride Request")
+                  .child(widget.userRideRequestDetails!)
+                  .child("chats")
+                  .orderByChild('time')
+                  .onValue,
               builder: (context, snapshot) {
                 List<ChatMessage> messageList = [];
-                if (snapshot.hasData && snapshot.data != null && (snapshot.data! as DatabaseEvent).snapshot.value != null) {
-                  final myMessages = Map<dynamic, dynamic>.from((snapshot.data! as DatabaseEvent).snapshot.value as Map<dynamic, dynamic>);
+                if (snapshot.hasData &&
+                    snapshot.data != null &&
+                    (snapshot.data! as DatabaseEvent).snapshot.value != null) {
+                  final myMessages = Map<dynamic, dynamic>.from(
+                      (snapshot.data! as DatabaseEvent).snapshot.value
+                          as Map<dynamic, dynamic>);
                   myMessages.forEach((key, value) {
                     final currentMessage = Map<String, dynamic>.from(value);
                     messageList.add(
@@ -76,7 +91,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     );
                     messageList.sort((a, b) {
-                      return a.time.toString().toLowerCase().compareTo(b.time.toString().toLowerCase());
+                      return a.time
+                          .toString()
+                          .toLowerCase()
+                          .compareTo(b.time.toString().toLowerCase());
                     });
                   });
                   return ListView.builder(
@@ -86,13 +104,29 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: messageList.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin: messageList[index].senderId == fAuth.currentUser!.uid ? const EdgeInsets.only(top: 20, left: 120, right: 15) : const EdgeInsets.only(top: 20, left: 15, right: 120),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        margin: messageList[index].senderId ==
+                                fAuth.currentUser!.uid
+                            ? const EdgeInsets.only(
+                                top: 20, left: 120, right: 15)
+                            : const EdgeInsets.only(
+                                top: 20, left: 15, right: 120),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
                         decoration: BoxDecoration(
-                          color: messageList[index].senderId == fAuth.currentUser!.uid ? Colors.blue : Colors.grey,
-                          borderRadius: messageList[index].senderId == fAuth.currentUser!.uid
-                              ? const BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))
-                              : const BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+                          color: messageList[index].senderId ==
+                                  fAuth.currentUser!.uid
+                              ? Colors.blue
+                              : Colors.grey,
+                          borderRadius: messageList[index].senderId ==
+                                  fAuth.currentUser!.uid
+                              ? const BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  topLeft: Radius.circular(15),
+                                  bottomLeft: Radius.circular(15))
+                              : const BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  topLeft: Radius.circular(15),
+                                  bottomRight: Radius.circular(15)),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.black12,
@@ -101,12 +135,32 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ],
                         ),
-                        child: Text(
-                          messageList[index].textMessage.toString(),
-                          textAlign: TextAlign.justify,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(fontSize: 20, color: Colors.white),
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              messageList[index].textMessage.toString(),
+                              textAlign: TextAlign.justify,
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              DateFormat.jm().format(DateTime.parse(
+                                  messageList[index].time.toString())),
+                              textAlign: TextAlign.justify,
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -115,7 +169,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   return const Center(
                     child: Text(
                       'No Message Found...',
-                      style: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.w400),
                     ),
                   );
                 }
@@ -146,11 +203,13 @@ class _ChatScreenState extends State<ChatScreen> {
                             borderRadius: BorderRadius.circular(40.0),
                           ),
                           enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40.0)),
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40.0)),
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           filled: true,
@@ -184,7 +243,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ],
                         ),
-                        child: Image.asset("images/send.png", width: 30, height: 30),
+                        child: Image.asset("images/send.png",
+                            width: 30, height: 30),
                       ),
                     ),
                   ],
