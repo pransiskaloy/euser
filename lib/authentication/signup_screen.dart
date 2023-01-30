@@ -1,5 +1,6 @@
 import 'package:euser/authentication/login_screen.dart';
 import 'package:euser/authentication/petinfo_screen.dart';
+import 'package:euser/main.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
 import 'package:euser/widgets/keyboard.dart';
 import 'package:euser/widgets/progress_dialog.dart';
@@ -87,10 +88,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: Colors.white,
           textColor: Colors.green,
         );
+        MyApp.restartApp(context);
         // Navigator.push(context, MaterialPageRoute(builder: (c) => const MySplashScreen()));
-        Navigator.of(context).pop();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (c) => const PetInfoScreen()));
+        // Navigator.of(context).pop();
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (c) => const PetInfoScreen()));
       } else {
         Navigator.pop(context);
         showToaster(context, "Account has not been Created.", "fail");
@@ -412,7 +414,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             Text(
               'By clicking Sign Up, you agree to our',
-              style: GoogleFonts.poppins(textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 15)),
+              style: GoogleFonts.poppins(
+                  textStyle:
+                      const TextStyle(color: Color(0xFF4F6CAD), fontSize: 15)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -420,14 +424,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 GestureDetector(
                   child: Text(
                     ' Terms and Conditions',
-                    style: GoogleFonts.poppins(textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 15, fontWeight: FontWeight.bold)),
+                    style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                            color: Color(0xFF4F6CAD),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
                   ),
                   onTap: () {
                     showModalBottomSheet<void>(
                       context: context,
                       builder: (BuildContext context) {
                         return Container(
-                          padding:const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
                           height: MediaQuery.of(context).size.height,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
@@ -449,15 +458,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontWeight: FontWeight.bold,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "General Terms",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -468,7 +478,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Under no circumstances shall E-hatid team be liable for any direct, indirect, special, incidental or consequential damages, including, but not limited to, loss of data or profit, arising out of the use, or the inability to use, the materials on this app, even if E-hatid  team or an authorized representative has been advised of the possibility of such damages. If your use of materials from this app results in the need for servicing, repair or correction of equipment or data, you assume any costs thereof.",
                                   textAlign: TextAlign.justify,
@@ -477,7 +489,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "E-hatid will not be responsible for any outcome that may occur during the course of usage of our resources. We reserve the rights to change the fare rates in accordance with government laws and revise the resources usage policy in any moment.",
                                   textAlign: TextAlign.justify,
@@ -486,15 +500,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "License",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -505,15 +520,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Definitions and key terms",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -525,229 +541,270 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Company: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "when this policy mentions 'Company,' 'we,' 'us,' or 'our,' it refers to Team Badula that is responsible for your information under this Privacy Policy.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Country: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "where E-hatid or the owners/founders of E-hatid are based, in this case is Philippines.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Customer: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "refers to the person that signs-up to use the E-hatid Service.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Device: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "any internet connected device such as a smartphone, tablet, computer, or any other device that can be used to use E-hatid and its services.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Administrator: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "refers to individuals who manage E-hatid or are under authority to perform a service on behalf of one of the parties.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Personal Data: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "any information that directly, indirectly, or in connection with other information - including a personal identification number - allows for the identification or identifiability of a natural person.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Service: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "refers to the service provided by E-hatid as described on this platform.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.only(left:20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "You: ",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
+                                          textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                       Flexible(
                                         child: Text(
                                           "a person that is registered with E-hatid to use the Services.",
                                           textAlign: TextAlign.justify,
                                           style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 20,
-                                          ),),
+                                            textStyle: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
-                                  ),),
-                                const SizedBox(height: 10,),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Restrictions",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -758,7 +815,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   )),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20.0),
+                                  padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(
                                     "- License, sell, rent, leave, assign, distribute, or commercially exploit the service or make the platform available to any third party.",
                                     textAlign: TextAlign.justify,
@@ -769,7 +826,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20.0),
+                                  padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(
                                     "- Modify, make derivative works of, disassemble, decrypt, reverse compile or reverse engineer any part of the service.",
                                     textAlign: TextAlign.justify,
@@ -779,15 +836,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     )),
                                   ),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Your Consent",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -798,15 +856,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Changes To Our Terms & Conditions",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -825,15 +884,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Limitation of Liability",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -852,15 +912,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Disclaimer",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -871,15 +932,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Contact Us",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -890,7 +952,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Via cellphone number: 09813729866",
                                   textAlign: TextAlign.justify,
@@ -917,19 +981,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Text(
                   ', and',
-                  style: GoogleFonts.poppins(textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 15)),
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          color: Color(0xFF4F6CAD), fontSize: 15)),
                 ),
                 GestureDetector(
                   child: Text(
                     ' Privacy Policy.',
-                    style: GoogleFonts.poppins(textStyle: const TextStyle(color: Color(0xFF4F6CAD), fontSize: 15, fontWeight: FontWeight.bold)),
+                    style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                            color: Color(0xFF4F6CAD),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
                   ),
-                  onTap: (){
+                  onTap: () {
                     showModalBottomSheet<void>(
                       context: context,
                       builder: (BuildContext context) {
                         return Container(
-                          padding:const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
                           height: MediaQuery.of(context).size.height,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
@@ -951,15 +1022,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontWeight: FontWeight.bold,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Personal Information",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -971,7 +1043,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   )),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20.0),
+                                  padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(
                                     "- Full Name\n- Address\n- Contact Number\n- Email\n- Face/Photo\n- Driver's License\n- Car Information",
                                     textAlign: TextAlign.justify,
@@ -981,15 +1053,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     )),
                                   ),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Use",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -1000,15 +1073,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Protection Measures",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -1019,15 +1093,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Contact Us",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.poppins(
-                                      textStyle:const  TextStyle(
+                                      textStyle: const TextStyle(
                                     fontSize: 23,
                                     fontWeight: FontWeight.bold,
-                                    
                                   )),
                                 ),
                                 Text(
@@ -1038,7 +1113,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                   )),
                                 ),
-                                const SizedBox(height: 10,),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
                                   "Via cellphone number: 09813729866",
                                   textAlign: TextAlign.justify,

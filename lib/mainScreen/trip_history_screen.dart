@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../assistants/assistant_methods.dart';
+
 class TripHistoryScreen extends StatefulWidget {
   const TripHistoryScreen({Key? key}) : super(key: key);
 
