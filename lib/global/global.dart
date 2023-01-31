@@ -27,5 +27,6 @@ String? geoin;
 int driverRequestTimedOut = 10;
 String driverID = "";
 bool geostatus = false;
+double base = 0;
 String petQuantity = '';
 String petDesciption = '';

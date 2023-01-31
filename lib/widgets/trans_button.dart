@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 class TransparentButton extends StatelessWidget {
   final String? text;
-  final Function? press;
   const TransparentButton({
     this.text,
-    this.press,
   });
 
   @override
@@ -19,7 +17,9 @@ class TransparentButton extends StatelessWidget {
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.transparent)))),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
         child: Text(
           text!,
           style: const TextStyle(

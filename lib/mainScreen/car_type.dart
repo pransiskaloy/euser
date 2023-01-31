@@ -38,27 +38,30 @@ class _CarTypeState extends State<CarType> {
               cars(() {
                 setState(() {
                   geoin = 'Motorcycle';
+                  base = 30.00;
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Motorcycle.png'),
+              }, context, 'Motorcycle.png', 'Php 30.00'),
               const SizedBox(
                 height: 5,
               ),
               cars(() {
                 setState(() {
                   geoin = 'Furfetch-go';
+                  base = 45.00;
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Furfetch-go.png'),
+              }, context, 'Furfetch-go.png', 'Php 45.00'),
               const SizedBox(
                 height: 5,
               ),
               cars(() {
                 setState(() {
                   geoin = 'Furfetch-x';
+                  base = 55.00;
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Furfetch-x.png'),
+              }, context, 'Furfetch-x.png', 'Php 55.00'),
               const SizedBox(
                 height: 20,
               ),
@@ -95,7 +98,7 @@ class _CarTypeState extends State<CarType> {
     );
   }
 
-  Widget cars(onpress, BuildContext context, String image) {
+  Widget cars(onpress, BuildContext context, String image, String tagpila) {
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
       child: Container(
@@ -154,7 +157,7 @@ class _CarTypeState extends State<CarType> {
                     height: 10,
                   ),
                   Text(
-                    "Php 40.00",
+                    tagpila,
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: const Color.fromARGB(255, 219, 90, 90),

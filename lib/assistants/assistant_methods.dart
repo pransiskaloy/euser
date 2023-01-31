@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:euser/assistants/request_assistant.dart';
 import 'package:euser/global/global.dart';
 import 'package:euser/global/maps_key.dart';
@@ -77,8 +78,8 @@ class AssistantMethods {
     return directionDetailsInfo;
   }
 
-  static double estimatedFare(DirectionDetailsInfo directionDetailsInfo) {
-    double baseFare = 40;
+  static double estimatedFare(
+      DirectionDetailsInfo directionDetailsInfo, double baseFare) {
     double timeTraveledFarePerMinute =
         (directionDetailsInfo.duration_value! / 100) *
             3; //0.1 is dollar charge per minute
@@ -89,7 +90,7 @@ class AssistantMethods {
     double totalFare =
         baseFare + timeTraveledFarePerMinute + distanceTraveledFarePerKilometer;
 
-    return double.parse(totalFare.toStringAsFixed(1));
+    return double.parse(totalFare.toStringAsFixed(2));
   }
 
   static sendNotificationToDriverNow(

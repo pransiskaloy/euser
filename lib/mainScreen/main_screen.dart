@@ -441,7 +441,7 @@ class _MainScreenState extends State<MainScreen> {
                                     Expanded(child: Container()),
                                     Text(
                                       (tripDirectionDetailsInfo != null)
-                                          ? 'Php${AssistantMethods.estimatedFare(tripDirectionDetailsInfo!)}'
+                                          ? 'Php${AssistantMethods.estimatedFare(tripDirectionDetailsInfo!, base)}'
                                           : 'Php2',
                                       style: const TextStyle(
                                         fontFamily: 'Muli',
@@ -863,7 +863,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-//==============BAgas Design
+//==============BAgas Design==============================================//
           //ui for searching location
           Positioned(
             bottom: 0,

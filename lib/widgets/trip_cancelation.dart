@@ -64,9 +64,6 @@ class TripCancelationDialog extends StatelessWidget {
                   width: 200,
                   child: TransparentButton(
                     text: 'Cancel',
-                    press: () {
-                      Navigator.of(context).pop();
-                    },
                   ),
                 ),
                 const SizedBox(
