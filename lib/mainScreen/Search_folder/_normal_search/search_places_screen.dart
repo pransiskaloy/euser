@@ -20,7 +20,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen> {
     var uuid = const Uuid();
     if (inputText.length > 3) {
       String urlAutoCompleteSearch =
-          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$inputText&location=7.1907,125.4553&radius=2444&key=$mapKey&sessiontoken=${uuid.v4()}&components=country:ph&regions=postal_code:8000";
+          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$inputText&location=7.1907,125.4553&radius=2444&key=$mapKey&sessiontoken=${uuid.v4()}&components=country:ph&regions=postal_code:8000&administrative_area_level_1=Davao City";
 
       var responseAutoCompleteSearch =
           await RequestAssistant.receiveRequest(urlAutoCompleteSearch);
