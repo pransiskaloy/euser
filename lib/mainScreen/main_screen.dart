@@ -18,6 +18,7 @@ import 'package:euser/widgets/divider.dart';
 import 'package:euser/widgets/main_button.dart';
 import 'package:euser/widgets/no_driver.dart';
 import 'package:euser/widgets/pay_fare_amount_dialog.dart';
+import 'package:euser/widgets/paymentConfirmation.dart';
 import 'package:euser/widgets/progress_dialog.dart';
 import 'package:euser/widgets/trip_cancelation.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -487,17 +488,27 @@ class _MainScreenState extends State<MainScreen> {
                                   var response = await showDialog(
                                       context: context,
                                       barrierDismissible: false,
-                                      builder: (BuildContext context) =>
+                                      builder: (BuildContext
+                                              context) => ///////DIRI TA MAG EDIT SA SHOW ANG SKEMA SKEMA TOTALS
                                           CarType());
                                   if (response == 'Start') {
-                                    setState(() {
-                                      appState = 'Requesting';
-                                    });
-                                    showLoadingTrip();
-                                    onlineNearbyAvailableDriversList =
-                                        GeoFireAssistant
-                                            .activeNearbyAvailableDriversList;
-                                    findDriver();
+                                    //add UG dialog for TOtal Cost
+                                    var respo = await showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext
+                                                context) => ///////DIRI TA MAG EDIT SA SHOW ANG SKEMA SKEMA TOTALS
+                                            PaymentConfirmation());
+                                    if (respo == 'okay') {
+                                      setState(() {
+                                        appState = 'Requesting';
+                                      });
+                                      showLoadingTrip();
+                                      onlineNearbyAvailableDriversList =
+                                          GeoFireAssistant
+                                              .activeNearbyAvailableDriversList;
+                                      findDriver();
+                                    }
                                   }
                                 },
                               ),
@@ -1897,7 +1908,9 @@ class _MainScreenState extends State<MainScreen> {
                 driverTripRef.set('Canceled');
                 driverTripRef.onDisconnect();
                 timer.cancel();
-                driverRequestTimedOut = 10;
+                driverRequestTimedOut = 180;
+
+                ///3 minutes waiting time
               }
               driverRequestTimedOut--;
 
@@ -1911,7 +1924,7 @@ class _MainScreenState extends State<MainScreen> {
                   print('Current Driver ID >>> $driverID');
                   print(
                       'Current Counter .... $counter and available drivers ${onlineNearbyAvailableDriversList.length}');
-                  driverRequestTimedOut = 10;
+                  driverRequestTimedOut = 180;
                 }
               });
               if (driverRequestTimedOut == 0) {
