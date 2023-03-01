@@ -92,6 +92,8 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     checkIfLocationPermissionAllowed();
     Geofire.initialize("activeDrivers");
+    AssistantMethods.getCarType();
+    AssistantMethods.getValues();
   }
 
   @override
@@ -438,17 +440,6 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    Expanded(child: Container()),
-                                    Text(
-                                      (tripDirectionDetailsInfo != null)
-                                          ? 'Php${AssistantMethods.estimatedFare(tripDirectionDetailsInfo!, base)}'
-                                          : 'Php2',
-                                      style: const TextStyle(
-                                        fontFamily: 'Muli',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
                                     ),
                                   ],
                                 ),
@@ -1908,7 +1899,7 @@ class _MainScreenState extends State<MainScreen> {
                 driverTripRef.set('Canceled');
                 driverTripRef.onDisconnect();
                 timer.cancel();
-                driverRequestTimedOut = 180;
+                driverRequestTimedOut = timeFrame;
 
                 ///3 minutes waiting time
               }
@@ -1924,13 +1915,13 @@ class _MainScreenState extends State<MainScreen> {
                   print('Current Driver ID >>> $driverID');
                   print(
                       'Current Counter .... $counter and available drivers ${onlineNearbyAvailableDriversList.length}');
-                  driverRequestTimedOut = 180;
+                  driverRequestTimedOut = timeFrame;
                 }
               });
               if (driverRequestTimedOut == 0) {
                 driverTripRef.set('timeout');
                 driverTripRef.onDisconnect();
-                driverRequestTimedOut = 10;
+                driverRequestTimedOut = timeFrame;
                 timer.cancel();
                 print('Current Counter timed out.... $counter');
                 findDriver();

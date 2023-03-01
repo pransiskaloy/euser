@@ -128,7 +128,7 @@ class _PetInformationState extends State<PetInformation> {
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           filled: true,
-                          hintText: "1",
+                          hintText: "0",
                           hintStyle: const TextStyle(
                             color: Color.fromARGB(255, 172, 170, 170),
                             letterSpacing: 1.5,
