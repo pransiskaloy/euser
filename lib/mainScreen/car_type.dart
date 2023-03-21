@@ -1,4 +1,6 @@
+import 'package:euser/assistants/assistant_methods.dart';
 import 'package:euser/global/global.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -38,30 +40,31 @@ class _CarTypeState extends State<CarType> {
               cars(() {
                 setState(() {
                   geoin = 'Motorcycle';
-                  base = 30.00;
+                  base = xmotor;
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Motorcycle.png', 'Php 30.00'),
+              }, context, 'Motorcycle.png',
+                  double.parse(xmotor.toStringAsFixed(3))),
               const SizedBox(
                 height: 5,
               ),
               cars(() {
                 setState(() {
                   geoin = 'Furfetch-go';
-                  base = 45.00;
+                  base = xfurgo;
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Furfetch-go.png', 'Php 45.00'),
+              }, context, 'Furfetch-go.png', xfurgo),
               const SizedBox(
                 height: 5,
               ),
               cars(() {
                 setState(() {
                   geoin = 'Furfetch-x';
-                  base = 55.00;
+                  base = xfurx;
                 });
                 Navigator.of(context).pop('Start');
-              }, context, 'Furfetch-x.png', 'Php 55.00'),
+              }, context, 'Furfetch-x.png', xfurx),
               const SizedBox(
                 height: 20,
               ),
@@ -98,7 +101,7 @@ class _CarTypeState extends State<CarType> {
     );
   }
 
-  Widget cars(onpress, BuildContext context, String image, String tagpila) {
+  Widget cars(onpress, BuildContext context, String image, double tagpila) {
     return Container(
       margin: const EdgeInsets.only(bottom: 5),
       child: Container(
@@ -157,7 +160,7 @@ class _CarTypeState extends State<CarType> {
                     height: 10,
                   ),
                   Text(
-                    tagpila,
+                    'Php${tagpila.toStringAsFixed(2)}',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: const Color.fromARGB(255, 219, 90, 90),

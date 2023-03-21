@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
     super.initState();
     AssistantMethods.readCurrentOnlineUserInfo();
     AssistantMethods.readTripKeysForOnlineUser(context);
+    AssistantMethods.timeframe();
   }
 
   @override

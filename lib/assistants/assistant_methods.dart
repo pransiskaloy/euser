@@ -78,19 +78,87 @@ class AssistantMethods {
     return directionDetailsInfo;
   }
 
-  static double estimatedFare(
-      DirectionDetailsInfo directionDetailsInfo, double baseFare) {
-    double timeTraveledFarePerMinute =
-        (directionDetailsInfo.duration_value! / 100) *
-            3; //0.1 is dollar charge per minute
-    double distanceTraveledFarePerKilometer =
-        (directionDetailsInfo.duration_value! / 60) *
-            2; //0.1 is dollar charge per minute
+  static double estimatedFare(DirectionDetailsInfo directionDetailsInfo) {
+    //per km = in db
+    //per minute = in db
+    timeTraveledFarePerMinute = (directionDetailsInfo.duration_value! / 60) *
+        perMin; //0.1 is dollar charge per minute
 
-    double totalFare =
-        baseFare + timeTraveledFarePerMinute + distanceTraveledFarePerKilometer;
+    distanceTraveledFarePerKilometer =
+        (directionDetailsInfo.distance_value! / 1000) *
+            perKm; //0.1 is dollar charge per minute
+
+    double totalFare = distanceTraveledFarePerKilometer +
+        timeTraveledFarePerMinute +
+        base +
+        bookingFee;
 
     return double.parse(totalFare.toStringAsFixed(2));
+  }
+
+  static void getCarType() {
+    DatabaseReference furgo =
+        FirebaseDatabase.instance.ref().child('BaseFare/Furfetch-go');
+    DatabaseReference furx =
+        FirebaseDatabase.instance.ref().child('BaseFare/Furfetch-x');
+    DatabaseReference motor =
+        FirebaseDatabase.instance.ref().child('BaseFare/Motorcycle');
+    furgo.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        xfurgo = double.parse(snap.snapshot.value.toString());
+        print(xfurgo);
+      }
+    });
+    furx.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        xfurx = double.parse(snap.snapshot.value.toString());
+        print(xfurx);
+      }
+    });
+    motor.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        xmotor = double.parse(snap.snapshot.value.toString());
+        print(xmotor);
+      }
+    });
+  }
+
+  static void getValues() {
+    DatabaseReference getKm =
+        FirebaseDatabase.instance.ref().child('BaseFare/PerKm');
+    DatabaseReference getMin =
+        FirebaseDatabase.instance.ref().child('BaseFare/PerMin');
+    DatabaseReference bookinF =
+        FirebaseDatabase.instance.ref().child('BaseFare/BookingFee');
+    getKm.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        perKm = double.parse(snap.snapshot.value.toString());
+        print(perKm);
+      }
+    });
+    getMin.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        perMin = double.parse(snap.snapshot.value.toString());
+        print(perMin);
+      }
+    });
+    bookinF.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        bookingFee = double.parse(snap.snapshot.value.toString());
+        print(bookingFee);
+      }
+    });
+  }
+
+  static void timeframe() {
+    DatabaseReference times =
+        FirebaseDatabase.instance.ref().child('BaseFare/TimeFrame');
+    times.once().then((snap) {
+      if (snap.snapshot.value != null) {
+        timeFrame = int.parse(snap.snapshot.value.toString());
+        print(timeFrame);
+      }
+    });
   }
 
   static sendNotificationToDriverNow(
