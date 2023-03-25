@@ -4,6 +4,7 @@ import 'package:euser/mainScreen/pet_information.dart';
 import 'package:euser/mainScreen/profile_screen.dart';
 import 'package:euser/mainScreen/trip_history_screen.dart';
 import 'package:euser/splashScreen/splash_screen.dart';
+import 'package:euser/widgets/manual_tab.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -142,10 +143,15 @@ class _HomeState extends State<Home> {
                             },
                           ),
                           buildPetCategory(
-                            category: 'Support',
+                            category: 'Help',
                             color: Colors.white,
                             image: 'images/customer-service.png',
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => PassengerManual()));
+                            },
                           ),
                         ],
                       ),
