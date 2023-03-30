@@ -49,6 +49,7 @@ dependencies:
   intl: ^0.17.0
   animated_text_kit: ^4.2.1
   uuid: ^3.0.5
+  url_launcher_web: ^2.0.14
   
 
 dev_dependencies:
