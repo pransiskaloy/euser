@@ -15,21 +15,30 @@ class _PetInformationState extends State<PetInformation> {
   TextEditingController petDescription = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    petQuantity.text = "1";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: Text(
-                'Pet Information',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'Muli', fontSize: 25),
-              ),),
+      appBar: AppBar(
+        title: Text(
+          'Pet Information',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'Muli', fontSize: 25),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(13),
@@ -54,13 +63,22 @@ class _PetInformationState extends State<PetInformation> {
                           fit: BoxFit.fitHeight,
                         ),
                       ),
-                      SizedBox(width: 5,),
-                      Text("No. of Pet",style: GoogleFonts.poppins(textStyle:TextStyle(
-                        fontWeight: FontWeight.bold,fontSize: 20,
-                      ),),),                    ],
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "No. of Pet",
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width *.2,
+                    width: MediaQuery.of(context).size.width * .2,
                     // padding: const EdgeInsets.all(15),
                     child: TextField(
                       keyboardType: TextInputType.phone,
@@ -71,11 +89,13 @@ class _PetInformationState extends State<PetInformation> {
                             borderRadius: BorderRadius.circular(40.0),
                           ),
                           enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40.0)),
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40.0)),
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           filled: true,
@@ -92,8 +112,8 @@ class _PetInformationState extends State<PetInformation> {
             ),
             const SizedBox(height: 10),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(13),
@@ -109,7 +129,9 @@ class _PetInformationState extends State<PetInformation> {
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 12,),
+                      SizedBox(
+                        width: 12,
+                      ),
                       SizedBox(
                         height: 45,
                         width: 45,
@@ -118,30 +140,43 @@ class _PetInformationState extends State<PetInformation> {
                           fit: BoxFit.fitHeight,
                         ),
                       ),
-                      SizedBox(width: 5,),
-                      Text("Description",style: GoogleFonts.poppins(textStyle:TextStyle(
-                        fontWeight: FontWeight.bold,fontSize: 20,
-                      ),),),                    ],
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Description",
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * .89,
                     padding: const EdgeInsets.all(15),
                     child: TextField(
                       maxLines: 9,
-                      style: GoogleFonts.poppins(textStyle:TextStyle(fontSize: 18)),
+                      style: GoogleFonts.poppins(
+                          textStyle: TextStyle(fontSize: 18)),
                       controller: petDescription,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 20,top:20),
+                          contentPadding:
+                              const EdgeInsets.only(left: 20, top: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
                             borderSide: BorderSide(color: Color(0xFF4F6CAD)),
                           ),
                           filled: true,
