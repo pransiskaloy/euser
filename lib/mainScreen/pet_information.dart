@@ -51,6 +51,13 @@ class _PetInformationState extends State<PetInformation> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    petQuantity.text = "1";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
