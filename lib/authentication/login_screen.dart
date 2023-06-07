@@ -1,7 +1,7 @@
 import 'package:euser/authentication/forgotPassword.dart';
 import 'package:euser/authentication/signup_screen.dart';
 import 'package:euser/main.dart';
-import 'package:euser/splashScreen/splash_screen.dart';
+import 'package:euser/widgets/bottomModal.dart';
 import 'package:euser/widgets/keyboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -10,6 +10,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../global/global.dart';
 import '../widgets/progress_dialog.dart';
+
+import 'dart:async';
+import 'dart:developer' as developer;
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,6 +29,57 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   bool _passwordVisible = false;
+  ShowBottomModal showModal = ShowBottomModal();
+
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    initConnectivity();
+
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initConnectivity() async {
+    late ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      developer.log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+      print(_connectionStatus.toString());
+      if (_connectionStatus.toString() == "ConnectivityResult.none") {
+        showModal.bottomModal(context, 'images/network.json');
+      }
+    });
+  }
 
   validateForm(BuildContext context) {
     if (!emailTextEditingController.text.contains("@") ||
@@ -55,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
     )
             .catchError((msg) {
       Navigator.pop(context);
-      showToaster(context, "Error: " + msg.toString(), 'fail');
+      showToaster(context, "No record exist with this credential.", 'fail');
     }))
         .user;
     if (firebaseUser != null) {
@@ -270,7 +328,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ElevatedButton(
               onPressed: () {
                 KeyboardUtil.hideKeyboard(context);
-                validateForm(context);
+                if (_connectionStatus.toString() != "ConnectivityResult.none") {
+                  validateForm(context);
+                } else {
+                  showModal.bottomModal(context, 'images/network.json');
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xFF4F6CAD),
