@@ -79,6 +79,7 @@ class _HomeState extends State<Home> {
         showModal.bottomModal(context, 'images/network.json');
       }
     });
+    AssistantMethods.timeframe();
   }
 
   @override
