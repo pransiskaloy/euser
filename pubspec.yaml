@@ -49,6 +49,8 @@ dependencies:
   intl: ^0.17.0
   animated_text_kit: ^4.2.1
   uuid: ^3.0.5
+  connectivity_plus: ^2.2.1
+  lottie: ^1.2.2
   
 
 dev_dependencies:

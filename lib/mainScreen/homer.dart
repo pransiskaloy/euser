@@ -10,6 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../global/global.dart';
+import 'dart:async';
+import 'dart:developer' as developer;
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../widgets/bottomModal.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,6 +32,53 @@ class _HomeState extends State<Home> {
     super.initState();
     AssistantMethods.readCurrentOnlineUserInfo();
     AssistantMethods.readTripKeysForOnlineUser(context);
+
+    initConnectivity();
+
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  ShowBottomModal showModal = ShowBottomModal();
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initConnectivity() async {
+    late ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      developer.log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+      print(_connectionStatus.toString());
+      if (_connectionStatus.toString() == "ConnectivityResult.none") {
+        showModal.bottomModal(context, 'images/network.json');
+      }
+    });
     AssistantMethods.timeframe();
   }
 
@@ -84,10 +139,16 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/new_trip.png',
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (c) => PetInformation()));
+                              if (_connectionStatus.toString() !=
+                                  "ConnectivityResult.none") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (c) => PetInformation()));
+                              } else {
+                                showModal.bottomModal(
+                                    context, 'images/network.json');
+                              }
                             },
                           ),
                           buildPetCategory(
@@ -95,11 +156,17 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/history.png',
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (c) =>
-                                          const TripHistoryScreen()));
+                              if (_connectionStatus.toString() !=
+                                  "ConnectivityResult.none") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (c) =>
+                                            const TripHistoryScreen()));
+                              } else {
+                                showModal.bottomModal(
+                                    context, 'images/network.json');
+                              }
                             },
                           ),
                         ],
@@ -136,10 +203,16 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/user.png',
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => ProfileScreen()));
+                              if (_connectionStatus.toString() !=
+                                  "ConnectivityResult.none") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) => ProfileScreen()));
+                              } else {
+                                showModal.bottomModal(
+                                    context, 'images/network.json');
+                              }
                             },
                           ),
                           buildPetCategory(
@@ -147,10 +220,17 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/customer-service.png',
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => PassengerManual()));
+                              if (_connectionStatus.toString() !=
+                                  "ConnectivityResult.none") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) =>
+                                            PassengerManual()));
+                              } else {
+                                showModal.bottomModal(
+                                    context, 'images/network.json');
+                              }
                             },
                           ),
                         ],
@@ -163,12 +243,19 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             image: 'images/exit.png',
                             onTap: () async {
-                              await fAuth.signOut();
-                              Navigator.of(context).pop();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (c) => const MySplashScreen()));
+                              if (_connectionStatus.toString() !=
+                                  "ConnectivityResult.none") {
+                                await fAuth.signOut();
+                                Navigator.of(context).pop();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (c) =>
+                                            const MySplashScreen()));
+                              } else {
+                                showModal.bottomModal(
+                                    context, 'images/network.json');
+                              }
                             },
                           ),
                         ],
