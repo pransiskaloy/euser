@@ -8,6 +8,60 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:905231775035:android:7a56d1e9cc740ab48ff31e",
+        "android_client_info": {
+          "package_name": "com.badula.edriver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbSNrfHmAgfr1Bhf9WgUZ_wgJZUscKnpg"
+        },
+        {
+          "current_key": "AIzaSyBO4NSiISNEgWw3EIAyCRLt-JlhgWF5KmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905231775035-2o4vmlsdnlrn6fp16908bt6s3gq7316f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905231775035:android:83672c71b1ecf8a58ff31e",
+        "android_client_info": {
+          "package_name": "com.badula.euser"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbSNrfHmAgfr1Bhf9WgUZ_wgJZUscKnpg"
+        },
+        {
+          "current_key": "AIzaSyBO4NSiISNEgWw3EIAyCRLt-JlhgWF5KmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905231775035-2o4vmlsdnlrn6fp16908bt6s3gq7316f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:905231775035:android:2b4c503b40263f008ff31e",
         "android_client_info": {
           "package_name": "com.example.edriver"
@@ -25,12 +79,20 @@
       ],
       "api_key": [
         {
+          "current_key": "AIzaSyBbSNrfHmAgfr1Bhf9WgUZ_wgJZUscKnpg"
+        },
+        {
           "current_key": "AIzaSyBO4NSiISNEgWw3EIAyCRLt-JlhgWF5KmM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905231775035-2o4vmlsdnlrn6fp16908bt6s3gq7316f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -53,12 +115,20 @@
       ],
       "api_key": [
         {
+          "current_key": "AIzaSyBbSNrfHmAgfr1Bhf9WgUZ_wgJZUscKnpg"
+        },
+        {
           "current_key": "AIzaSyBO4NSiISNEgWw3EIAyCRLt-JlhgWF5KmM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905231775035-2o4vmlsdnlrn6fp16908bt6s3gq7316f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
